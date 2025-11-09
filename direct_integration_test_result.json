@@ -1,0 +1,1079 @@
+{
+  "test_info": {
+    "trace_id": "direct-test-854b9e6b",
+    "total_time": 12.384997367858887,
+    "parsing_mode": "parallel",
+    "grid_blocks_count": 5,
+    "doc_length": 1989
+  },
+  "final_result": {
+    "feishu_urls": [
+      "https://example.com/test/ecommerce-system"
+    ],
+    "user_intent": "generate_crud",
+    "trace_id": "direct-test-854b9e6b",
+    "raw_docs": [
+      "\n# 电商管理系统产品设计\n\n## 1. 用户管理模块\n\n```grid\ngrid_column:\n  - width_ratio: 40\n    content: |\n        ![用户列表界面](user_list.png)\n  - width_ratio: 60\n    content: |\n        **查询条件**\n        - 用户ID: userId\n        - 用户名: username\n        - 注册渠道: channel\n        - 注册时间: createdTime\n\n        **显示字段**\n        - 用户ID\n        - 用户名\n        - 邮箱\n        - 注册时间\n        - 最后登录时间\n```\n\n## 2. 订单管理模块\n\n```grid\ngrid_column:\n  - width_ratio: 50\n    content: |\n        ![订单统计界面](order_stats.png)\n  - width_ratio: 50\n    content: |\n        **统计指标**\n        - 订单总数: orderCount\n        - 订单总金额: totalAmount\n        - 平均客单价: avgOrderValue\n        - 订单状态分布: statusDistribution\n\n        **时间维度**\n        - 日统计: daily\n        - 周统计: weekly\n        - 月统计: monthly\n```\n\n## 3. 商品管理模块\n\n```grid\ngrid_column:\n  - width_ratio: 45\n    content: |\n        ![商品管理界面](product_manage.png)\n  - width_ratio: 55\n    content: |\n        **商品筛选条件**\n        - 商品分类: category\n        - 品牌ID: brandId\n        - 价格区间: priceRange\n        - 库存状态: stockStatus\n\n        **商品信息字段**\n        - 商品ID: productId\n        - 商品名称: productName\n        - 商品价格: price\n        - 库存数量: stock\n        - 销量: sales\n```\n\n## 4. 数据分析模块\n\n```grid\ngrid_column:\n  - width_ratio: 50\n    content: |\n        ![数据分析仪表板](analytics_dashboard.png)\n  - width_ratio: 50\n    content: |\n        **分析维度**\n        - 用户维度: userDimension\n        - 商品维度: productDimension\n        - 时间维度: timeDimension\n        - 地域维度: regionDimension\n\n        **核心指标**\n        - 转化率: conversionRate\n        - 复购率: repurchaseRate\n        - 用户留存率: retentionRate\n        - 销售增长率: growthRate\n```\n\n## 5. 导出报表模块\n\n```grid\ngrid_column:\n  - width_ratio: 40\n    content: |\n        ![报表导出界面](export_report.png)\n  - width_ratio: 60\n    content: |\n        **导出配置**\n        - 报表类型: reportType\n        - 导出格式: exportFormat (Excel/PDF/CSV)\n        - 时间范围: dateRange\n        - 数据范围: dataScope\n\n        **导出字段**\n        - 用户信息: userInfo\n        - 订单信息: orderInfo\n        - 商品信息: productInfo\n        - 统计数据: statistics\n```\n"
+    ],
+    "ism": {
+      "doc_meta": {
+        "title": "电商管理系统产品设计",
+        "url": "https://example.com/test/ecommerce-system",
+        "version": "latest",
+        "parsing_mode": "parallel"
+      },
+      "interfaces": [
+        {
+          "id": "api_exportReport",
+          "name": "报表导出",
+          "type": "export_report",
+          "dimensions": [
+            {
+              "name": "报表类型",
+              "expression": "reportType",
+              "data_type": "string",
+              "required": true
+            },
+            {
+              "name": "导出格式",
+              "expression": "exportFormat",
+              "data_type": "string",
+              "required": true
+            },
+            {
+              "name": "时间范围",
+              "expression": "dateRange",
+              "data_type": "date",
+              "required": true
+            },
+            {
+              "name": "数据范围",
+              "expression": "dataScope",
+              "data_type": "string",
+              "required": true
+            }
+          ],
+          "metrics": [
+            {
+              "name": "用户信息",
+              "expression": "userInfo",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "订单信息",
+              "expression": "orderInfo",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "商品信息",
+              "expression": "productInfo",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "统计数据",
+              "expression": "statistics",
+              "data_type": "number",
+              "required": false
+            }
+          ]
+        },
+        {
+          "id": "api_userList",
+          "name": "用户列表",
+          "type": "data_display",
+          "dimensions": [
+            {
+              "name": "用户ID",
+              "expression": "userId",
+              "data_type": "string",
+              "required": true
+            },
+            {
+              "name": "用户名",
+              "expression": "username",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "注册渠道",
+              "expression": "channel",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "注册时间",
+              "expression": "createdTime",
+              "data_type": "date",
+              "required": false
+            },
+            {
+              "name": "邮箱",
+              "expression": "email",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "最后登录时间",
+              "expression": "lastLoginTime",
+              "data_type": "date",
+              "required": false
+            }
+          ],
+          "metrics": []
+        },
+        {
+          "id": "api_order_statistics",
+          "name": "订单统计",
+          "type": "analytics_metric",
+          "dimensions": [
+            {
+              "name": "日统计",
+              "expression": "daily",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "周统计",
+              "expression": "weekly",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "月统计",
+              "expression": "monthly",
+              "data_type": "string",
+              "required": false
+            }
+          ],
+          "metrics": [
+            {
+              "name": "订单总数",
+              "expression": "orderCount",
+              "data_type": "number",
+              "required": false
+            },
+            {
+              "name": "订单总金额",
+              "expression": "totalAmount",
+              "data_type": "number",
+              "required": false
+            },
+            {
+              "name": "平均客单价",
+              "expression": "avgOrderValue",
+              "data_type": "number",
+              "required": false
+            },
+            {
+              "name": "订单状态分布",
+              "expression": "statusDistribution",
+              "data_type": "string",
+              "required": false
+            }
+          ]
+        },
+        {
+          "id": "api_analytics_dashboard",
+          "name": "数据分析仪表板",
+          "type": "summary_dashboard",
+          "dimensions": [
+            {
+              "name": "用户维度",
+              "expression": "userDimension",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "商品维度",
+              "expression": "productDimension",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "时间维度",
+              "expression": "timeDimension",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "地域维度",
+              "expression": "regionDimension",
+              "data_type": "string",
+              "required": false
+            }
+          ],
+          "metrics": [
+            {
+              "name": "转化率",
+              "expression": "conversionRate",
+              "data_type": "number",
+              "required": false
+            },
+            {
+              "name": "复购率",
+              "expression": "repurchaseRate",
+              "data_type": "number",
+              "required": false
+            },
+            {
+              "name": "用户留存率",
+              "expression": "retentionRate",
+              "data_type": "number",
+              "required": false
+            },
+            {
+              "name": "销售增长率",
+              "expression": "growthRate",
+              "data_type": "number",
+              "required": false
+            }
+          ]
+        },
+        {
+          "id": "api_productFilter",
+          "name": "商品筛选条件",
+          "type": "filter_dimension",
+          "dimensions": [
+            {
+              "name": "商品分类",
+              "expression": "category",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "品牌ID",
+              "expression": "brandId",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "价格区间",
+              "expression": "priceRange",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "库存状态",
+              "expression": "stockStatus",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "商品ID",
+              "expression": "productId",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "商品名称",
+              "expression": "productName",
+              "data_type": "string",
+              "required": false
+            }
+          ],
+          "metrics": [
+            {
+              "name": "商品价格",
+              "expression": "price",
+              "data_type": "number",
+              "required": false
+            },
+            {
+              "name": "库存数量",
+              "expression": "stock",
+              "data_type": "number",
+              "required": false
+            },
+            {
+              "name": "销量",
+              "expression": "sales",
+              "data_type": "number",
+              "required": false
+            }
+          ]
+        }
+      ],
+      "__pending__": []
+    },
+    "plan": [
+      {
+        "tool": "mcp.create_export_page",
+        "args": {
+          "interface_id": "api_exportReport",
+          "name": "报表导出",
+          "dimensions": [
+            {
+              "name": "报表类型",
+              "expression": "reportType",
+              "data_type": "string",
+              "required": true
+            },
+            {
+              "name": "导出格式",
+              "expression": "exportFormat",
+              "data_type": "string",
+              "required": true
+            },
+            {
+              "name": "时间范围",
+              "expression": "dateRange",
+              "data_type": "date",
+              "required": true
+            },
+            {
+              "name": "数据范围",
+              "expression": "dataScope",
+              "data_type": "string",
+              "required": true
+            }
+          ],
+          "metrics": [
+            {
+              "name": "用户信息",
+              "expression": "userInfo",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "订单信息",
+              "expression": "orderInfo",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "商品信息",
+              "expression": "productInfo",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "统计数据",
+              "expression": "statistics",
+              "data_type": "number",
+              "required": false
+            }
+          ]
+        }
+      },
+      {
+        "tool": "mcp.create_list_page",
+        "args": {
+          "interface_id": "api_userList",
+          "name": "用户列表",
+          "dimensions": [
+            {
+              "name": "用户ID",
+              "expression": "userId",
+              "data_type": "string",
+              "required": true
+            },
+            {
+              "name": "用户名",
+              "expression": "username",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "注册渠道",
+              "expression": "channel",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "注册时间",
+              "expression": "createdTime",
+              "data_type": "date",
+              "required": false
+            },
+            {
+              "name": "邮箱",
+              "expression": "email",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "最后登录时间",
+              "expression": "lastLoginTime",
+              "data_type": "date",
+              "required": false
+            }
+          ],
+          "metrics": []
+        }
+      },
+      {
+        "tool": "mcp.create_analytics_page",
+        "args": {
+          "interface_id": "api_order_statistics",
+          "name": "订单统计",
+          "metrics": [
+            {
+              "name": "订单总数",
+              "expression": "orderCount",
+              "data_type": "number",
+              "required": false
+            },
+            {
+              "name": "订单总金额",
+              "expression": "totalAmount",
+              "data_type": "number",
+              "required": false
+            },
+            {
+              "name": "平均客单价",
+              "expression": "avgOrderValue",
+              "data_type": "number",
+              "required": false
+            },
+            {
+              "name": "订单状态分布",
+              "expression": "statusDistribution",
+              "data_type": "string",
+              "required": false
+            }
+          ]
+        }
+      },
+      {
+        "tool": "mcp.create_dashboard_page",
+        "args": {
+          "interface_id": "api_analytics_dashboard",
+          "name": "数据分析仪表板",
+          "dimensions": [
+            {
+              "name": "用户维度",
+              "expression": "userDimension",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "商品维度",
+              "expression": "productDimension",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "时间维度",
+              "expression": "timeDimension",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "地域维度",
+              "expression": "regionDimension",
+              "data_type": "string",
+              "required": false
+            }
+          ],
+          "metrics": [
+            {
+              "name": "转化率",
+              "expression": "conversionRate",
+              "data_type": "number",
+              "required": false
+            },
+            {
+              "name": "复购率",
+              "expression": "repurchaseRate",
+              "data_type": "number",
+              "required": false
+            },
+            {
+              "name": "用户留存率",
+              "expression": "retentionRate",
+              "data_type": "number",
+              "required": false
+            },
+            {
+              "name": "销售增长率",
+              "expression": "growthRate",
+              "data_type": "number",
+              "required": false
+            }
+          ]
+        }
+      },
+      {
+        "tool": "mcp.create_filter_page",
+        "args": {
+          "interface_id": "api_productFilter",
+          "name": "商品筛选条件",
+          "dimensions": [
+            {
+              "name": "商品分类",
+              "expression": "category",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "品牌ID",
+              "expression": "brandId",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "价格区间",
+              "expression": "priceRange",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "库存状态",
+              "expression": "stockStatus",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "商品ID",
+              "expression": "productId",
+              "data_type": "string",
+              "required": false
+            },
+            {
+              "name": "商品名称",
+              "expression": "productName",
+              "data_type": "string",
+              "required": false
+            }
+          ]
+        }
+      }
+    ],
+    "final_flow_json": "{\n  \"nodes\": [\n    {\n      \"id\": \"node_0\",\n      \"type\": \"mcp.create_export_page\",\n      \"config\": {\n        \"interface_id\": \"api_exportReport\",\n        \"name\": \"报表导出\",\n        \"dimensions\": [\n          {\n            \"name\": \"报表类型\",\n            \"expression\": \"reportType\",\n            \"data_type\": \"string\",\n            \"required\": true\n          },\n          {\n            \"name\": \"导出格式\",\n            \"expression\": \"exportFormat\",\n            \"data_type\": \"string\",\n            \"required\": true\n          },\n          {\n            \"name\": \"时间范围\",\n            \"expression\": \"dateRange\",\n            \"data_type\": \"date\",\n            \"required\": true\n          },\n          {\n            \"name\": \"数据范围\",\n            \"expression\": \"dataScope\",\n            \"data_type\": \"string\",\n            \"required\": true\n          }\n        ],\n        \"metrics\": [\n          {\n            \"name\": \"用户信息\",\n            \"expression\": \"userInfo\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"订单信息\",\n            \"expression\": \"orderInfo\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"商品信息\",\n            \"expression\": \"productInfo\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"统计数据\",\n            \"expression\": \"statistics\",\n            \"data_type\": \"number\",\n            \"required\": false\n          }\n        ]\n      }\n    },\n    {\n      \"id\": \"node_1\",\n      \"type\": \"mcp.create_list_page\",\n      \"config\": {\n        \"interface_id\": \"api_userList\",\n        \"name\": \"用户列表\",\n        \"dimensions\": [\n          {\n            \"name\": \"用户ID\",\n            \"expression\": \"userId\",\n            \"data_type\": \"string\",\n            \"required\": true\n          },\n          {\n            \"name\": \"用户名\",\n            \"expression\": \"username\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"注册渠道\",\n            \"expression\": \"channel\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"注册时间\",\n            \"expression\": \"createdTime\",\n            \"data_type\": \"date\",\n            \"required\": false\n          },\n          {\n            \"name\": \"邮箱\",\n            \"expression\": \"email\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"最后登录时间\",\n            \"expression\": \"lastLoginTime\",\n            \"data_type\": \"date\",\n            \"required\": false\n          }\n        ],\n        \"metrics\": []\n      }\n    },\n    {\n      \"id\": \"node_2\",\n      \"type\": \"mcp.create_analytics_page\",\n      \"config\": {\n        \"interface_id\": \"api_order_statistics\",\n        \"name\": \"订单统计\",\n        \"metrics\": [\n          {\n            \"name\": \"订单总数\",\n            \"expression\": \"orderCount\",\n            \"data_type\": \"number\",\n            \"required\": false\n          },\n          {\n            \"name\": \"订单总金额\",\n            \"expression\": \"totalAmount\",\n            \"data_type\": \"number\",\n            \"required\": false\n          },\n          {\n            \"name\": \"平均客单价\",\n            \"expression\": \"avgOrderValue\",\n            \"data_type\": \"number\",\n            \"required\": false\n          },\n          {\n            \"name\": \"订单状态分布\",\n            \"expression\": \"statusDistribution\",\n            \"data_type\": \"string\",\n            \"required\": false\n          }\n        ]\n      }\n    },\n    {\n      \"id\": \"node_3\",\n      \"type\": \"mcp.create_dashboard_page\",\n      \"config\": {\n        \"interface_id\": \"api_analytics_dashboard\",\n        \"name\": \"数据分析仪表板\",\n        \"dimensions\": [\n          {\n            \"name\": \"用户维度\",\n            \"expression\": \"userDimension\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"商品维度\",\n            \"expression\": \"productDimension\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"时间维度\",\n            \"expression\": \"timeDimension\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"地域维度\",\n            \"expression\": \"regionDimension\",\n            \"data_type\": \"string\",\n            \"required\": false\n          }\n        ],\n        \"metrics\": [\n          {\n            \"name\": \"转化率\",\n            \"expression\": \"conversionRate\",\n            \"data_type\": \"number\",\n            \"required\": false\n          },\n          {\n            \"name\": \"复购率\",\n            \"expression\": \"repurchaseRate\",\n            \"data_type\": \"number\",\n            \"required\": false\n          },\n          {\n            \"name\": \"用户留存率\",\n            \"expression\": \"retentionRate\",\n            \"data_type\": \"number\",\n            \"required\": false\n          },\n          {\n            \"name\": \"销售增长率\",\n            \"expression\": \"growthRate\",\n            \"data_type\": \"number\",\n            \"required\": false\n          }\n        ]\n      }\n    },\n    {\n      \"id\": \"node_4\",\n      \"type\": \"mcp.create_filter_page\",\n      \"config\": {\n        \"interface_id\": \"api_productFilter\",\n        \"name\": \"商品筛选条件\",\n        \"dimensions\": [\n          {\n            \"name\": \"商品分类\",\n            \"expression\": \"category\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"品牌ID\",\n            \"expression\": \"brandId\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"价格区间\",\n            \"expression\": \"priceRange\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"库存状态\",\n            \"expression\": \"stockStatus\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"商品ID\",\n            \"expression\": \"productId\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"商品名称\",\n            \"expression\": \"productName\",\n            \"data_type\": \"string\",\n            \"required\": false\n          }\n        ]\n      }\n    }\n  ],\n  \"edges\": [\n    {\n      \"id\": \"edge_0_1\",\n      \"source\": \"node_0\",\n      \"target\": \"node_1\"\n    },\n    {\n      \"id\": \"edge_1_2\",\n      \"source\": \"node_1\",\n      \"target\": \"node_2\"\n    },\n    {\n      \"id\": \"edge_2_3\",\n      \"source\": \"node_2\",\n      \"target\": \"node_3\"\n    },\n    {\n      \"id\": \"edge_3_4\",\n      \"source\": \"node_3\",\n      \"target\": \"node_4\"\n    }\n  ]\n}",
+    "response": {
+      "ism": {
+        "doc_meta": {
+          "title": "电商管理系统产品设计",
+          "url": "https://example.com/test/ecommerce-system",
+          "version": "latest",
+          "parsing_mode": "parallel"
+        },
+        "interfaces": [
+          {
+            "id": "api_exportReport",
+            "name": "报表导出",
+            "type": "export_report",
+            "dimensions": [
+              {
+                "name": "报表类型",
+                "expression": "reportType",
+                "data_type": "string",
+                "required": true
+              },
+              {
+                "name": "导出格式",
+                "expression": "exportFormat",
+                "data_type": "string",
+                "required": true
+              },
+              {
+                "name": "时间范围",
+                "expression": "dateRange",
+                "data_type": "date",
+                "required": true
+              },
+              {
+                "name": "数据范围",
+                "expression": "dataScope",
+                "data_type": "string",
+                "required": true
+              }
+            ],
+            "metrics": [
+              {
+                "name": "用户信息",
+                "expression": "userInfo",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "订单信息",
+                "expression": "orderInfo",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "商品信息",
+                "expression": "productInfo",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "统计数据",
+                "expression": "statistics",
+                "data_type": "number",
+                "required": false
+              }
+            ]
+          },
+          {
+            "id": "api_userList",
+            "name": "用户列表",
+            "type": "data_display",
+            "dimensions": [
+              {
+                "name": "用户ID",
+                "expression": "userId",
+                "data_type": "string",
+                "required": true
+              },
+              {
+                "name": "用户名",
+                "expression": "username",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "注册渠道",
+                "expression": "channel",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "注册时间",
+                "expression": "createdTime",
+                "data_type": "date",
+                "required": false
+              },
+              {
+                "name": "邮箱",
+                "expression": "email",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "最后登录时间",
+                "expression": "lastLoginTime",
+                "data_type": "date",
+                "required": false
+              }
+            ],
+            "metrics": []
+          },
+          {
+            "id": "api_order_statistics",
+            "name": "订单统计",
+            "type": "analytics_metric",
+            "dimensions": [
+              {
+                "name": "日统计",
+                "expression": "daily",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "周统计",
+                "expression": "weekly",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "月统计",
+                "expression": "monthly",
+                "data_type": "string",
+                "required": false
+              }
+            ],
+            "metrics": [
+              {
+                "name": "订单总数",
+                "expression": "orderCount",
+                "data_type": "number",
+                "required": false
+              },
+              {
+                "name": "订单总金额",
+                "expression": "totalAmount",
+                "data_type": "number",
+                "required": false
+              },
+              {
+                "name": "平均客单价",
+                "expression": "avgOrderValue",
+                "data_type": "number",
+                "required": false
+              },
+              {
+                "name": "订单状态分布",
+                "expression": "statusDistribution",
+                "data_type": "string",
+                "required": false
+              }
+            ]
+          },
+          {
+            "id": "api_analytics_dashboard",
+            "name": "数据分析仪表板",
+            "type": "summary_dashboard",
+            "dimensions": [
+              {
+                "name": "用户维度",
+                "expression": "userDimension",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "商品维度",
+                "expression": "productDimension",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "时间维度",
+                "expression": "timeDimension",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "地域维度",
+                "expression": "regionDimension",
+                "data_type": "string",
+                "required": false
+              }
+            ],
+            "metrics": [
+              {
+                "name": "转化率",
+                "expression": "conversionRate",
+                "data_type": "number",
+                "required": false
+              },
+              {
+                "name": "复购率",
+                "expression": "repurchaseRate",
+                "data_type": "number",
+                "required": false
+              },
+              {
+                "name": "用户留存率",
+                "expression": "retentionRate",
+                "data_type": "number",
+                "required": false
+              },
+              {
+                "name": "销售增长率",
+                "expression": "growthRate",
+                "data_type": "number",
+                "required": false
+              }
+            ]
+          },
+          {
+            "id": "api_productFilter",
+            "name": "商品筛选条件",
+            "type": "filter_dimension",
+            "dimensions": [
+              {
+                "name": "商品分类",
+                "expression": "category",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "品牌ID",
+                "expression": "brandId",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "价格区间",
+                "expression": "priceRange",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "库存状态",
+                "expression": "stockStatus",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "商品ID",
+                "expression": "productId",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "商品名称",
+                "expression": "productName",
+                "data_type": "string",
+                "required": false
+              }
+            ],
+            "metrics": [
+              {
+                "name": "商品价格",
+                "expression": "price",
+                "data_type": "number",
+                "required": false
+              },
+              {
+                "name": "库存数量",
+                "expression": "stock",
+                "data_type": "number",
+                "required": false
+              },
+              {
+                "name": "销量",
+                "expression": "sales",
+                "data_type": "number",
+                "required": false
+              }
+            ]
+          }
+        ],
+        "__pending__": []
+      },
+      "plan": [
+        {
+          "tool": "mcp.create_export_page",
+          "args": {
+            "interface_id": "api_exportReport",
+            "name": "报表导出",
+            "dimensions": [
+              {
+                "name": "报表类型",
+                "expression": "reportType",
+                "data_type": "string",
+                "required": true
+              },
+              {
+                "name": "导出格式",
+                "expression": "exportFormat",
+                "data_type": "string",
+                "required": true
+              },
+              {
+                "name": "时间范围",
+                "expression": "dateRange",
+                "data_type": "date",
+                "required": true
+              },
+              {
+                "name": "数据范围",
+                "expression": "dataScope",
+                "data_type": "string",
+                "required": true
+              }
+            ],
+            "metrics": [
+              {
+                "name": "用户信息",
+                "expression": "userInfo",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "订单信息",
+                "expression": "orderInfo",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "商品信息",
+                "expression": "productInfo",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "统计数据",
+                "expression": "statistics",
+                "data_type": "number",
+                "required": false
+              }
+            ]
+          }
+        },
+        {
+          "tool": "mcp.create_list_page",
+          "args": {
+            "interface_id": "api_userList",
+            "name": "用户列表",
+            "dimensions": [
+              {
+                "name": "用户ID",
+                "expression": "userId",
+                "data_type": "string",
+                "required": true
+              },
+              {
+                "name": "用户名",
+                "expression": "username",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "注册渠道",
+                "expression": "channel",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "注册时间",
+                "expression": "createdTime",
+                "data_type": "date",
+                "required": false
+              },
+              {
+                "name": "邮箱",
+                "expression": "email",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "最后登录时间",
+                "expression": "lastLoginTime",
+                "data_type": "date",
+                "required": false
+              }
+            ],
+            "metrics": []
+          }
+        },
+        {
+          "tool": "mcp.create_analytics_page",
+          "args": {
+            "interface_id": "api_order_statistics",
+            "name": "订单统计",
+            "metrics": [
+              {
+                "name": "订单总数",
+                "expression": "orderCount",
+                "data_type": "number",
+                "required": false
+              },
+              {
+                "name": "订单总金额",
+                "expression": "totalAmount",
+                "data_type": "number",
+                "required": false
+              },
+              {
+                "name": "平均客单价",
+                "expression": "avgOrderValue",
+                "data_type": "number",
+                "required": false
+              },
+              {
+                "name": "订单状态分布",
+                "expression": "statusDistribution",
+                "data_type": "string",
+                "required": false
+              }
+            ]
+          }
+        },
+        {
+          "tool": "mcp.create_dashboard_page",
+          "args": {
+            "interface_id": "api_analytics_dashboard",
+            "name": "数据分析仪表板",
+            "dimensions": [
+              {
+                "name": "用户维度",
+                "expression": "userDimension",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "商品维度",
+                "expression": "productDimension",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "时间维度",
+                "expression": "timeDimension",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "地域维度",
+                "expression": "regionDimension",
+                "data_type": "string",
+                "required": false
+              }
+            ],
+            "metrics": [
+              {
+                "name": "转化率",
+                "expression": "conversionRate",
+                "data_type": "number",
+                "required": false
+              },
+              {
+                "name": "复购率",
+                "expression": "repurchaseRate",
+                "data_type": "number",
+                "required": false
+              },
+              {
+                "name": "用户留存率",
+                "expression": "retentionRate",
+                "data_type": "number",
+                "required": false
+              },
+              {
+                "name": "销售增长率",
+                "expression": "growthRate",
+                "data_type": "number",
+                "required": false
+              }
+            ]
+          }
+        },
+        {
+          "tool": "mcp.create_filter_page",
+          "args": {
+            "interface_id": "api_productFilter",
+            "name": "商品筛选条件",
+            "dimensions": [
+              {
+                "name": "商品分类",
+                "expression": "category",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "品牌ID",
+                "expression": "brandId",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "价格区间",
+                "expression": "priceRange",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "库存状态",
+                "expression": "stockStatus",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "商品ID",
+                "expression": "productId",
+                "data_type": "string",
+                "required": false
+              },
+              {
+                "name": "商品名称",
+                "expression": "productName",
+                "data_type": "string",
+                "required": false
+              }
+            ]
+          }
+        }
+      ],
+      "flow_json": "{\n  \"nodes\": [\n    {\n      \"id\": \"node_0\",\n      \"type\": \"mcp.create_export_page\",\n      \"config\": {\n        \"interface_id\": \"api_exportReport\",\n        \"name\": \"报表导出\",\n        \"dimensions\": [\n          {\n            \"name\": \"报表类型\",\n            \"expression\": \"reportType\",\n            \"data_type\": \"string\",\n            \"required\": true\n          },\n          {\n            \"name\": \"导出格式\",\n            \"expression\": \"exportFormat\",\n            \"data_type\": \"string\",\n            \"required\": true\n          },\n          {\n            \"name\": \"时间范围\",\n            \"expression\": \"dateRange\",\n            \"data_type\": \"date\",\n            \"required\": true\n          },\n          {\n            \"name\": \"数据范围\",\n            \"expression\": \"dataScope\",\n            \"data_type\": \"string\",\n            \"required\": true\n          }\n        ],\n        \"metrics\": [\n          {\n            \"name\": \"用户信息\",\n            \"expression\": \"userInfo\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"订单信息\",\n            \"expression\": \"orderInfo\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"商品信息\",\n            \"expression\": \"productInfo\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"统计数据\",\n            \"expression\": \"statistics\",\n            \"data_type\": \"number\",\n            \"required\": false\n          }\n        ]\n      }\n    },\n    {\n      \"id\": \"node_1\",\n      \"type\": \"mcp.create_list_page\",\n      \"config\": {\n        \"interface_id\": \"api_userList\",\n        \"name\": \"用户列表\",\n        \"dimensions\": [\n          {\n            \"name\": \"用户ID\",\n            \"expression\": \"userId\",\n            \"data_type\": \"string\",\n            \"required\": true\n          },\n          {\n            \"name\": \"用户名\",\n            \"expression\": \"username\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"注册渠道\",\n            \"expression\": \"channel\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"注册时间\",\n            \"expression\": \"createdTime\",\n            \"data_type\": \"date\",\n            \"required\": false\n          },\n          {\n            \"name\": \"邮箱\",\n            \"expression\": \"email\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"最后登录时间\",\n            \"expression\": \"lastLoginTime\",\n            \"data_type\": \"date\",\n            \"required\": false\n          }\n        ],\n        \"metrics\": []\n      }\n    },\n    {\n      \"id\": \"node_2\",\n      \"type\": \"mcp.create_analytics_page\",\n      \"config\": {\n        \"interface_id\": \"api_order_statistics\",\n        \"name\": \"订单统计\",\n        \"metrics\": [\n          {\n            \"name\": \"订单总数\",\n            \"expression\": \"orderCount\",\n            \"data_type\": \"number\",\n            \"required\": false\n          },\n          {\n            \"name\": \"订单总金额\",\n            \"expression\": \"totalAmount\",\n            \"data_type\": \"number\",\n            \"required\": false\n          },\n          {\n            \"name\": \"平均客单价\",\n            \"expression\": \"avgOrderValue\",\n            \"data_type\": \"number\",\n            \"required\": false\n          },\n          {\n            \"name\": \"订单状态分布\",\n            \"expression\": \"statusDistribution\",\n            \"data_type\": \"string\",\n            \"required\": false\n          }\n        ]\n      }\n    },\n    {\n      \"id\": \"node_3\",\n      \"type\": \"mcp.create_dashboard_page\",\n      \"config\": {\n        \"interface_id\": \"api_analytics_dashboard\",\n        \"name\": \"数据分析仪表板\",\n        \"dimensions\": [\n          {\n            \"name\": \"用户维度\",\n            \"expression\": \"userDimension\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"商品维度\",\n            \"expression\": \"productDimension\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"时间维度\",\n            \"expression\": \"timeDimension\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"地域维度\",\n            \"expression\": \"regionDimension\",\n            \"data_type\": \"string\",\n            \"required\": false\n          }\n        ],\n        \"metrics\": [\n          {\n            \"name\": \"转化率\",\n            \"expression\": \"conversionRate\",\n            \"data_type\": \"number\",\n            \"required\": false\n          },\n          {\n            \"name\": \"复购率\",\n            \"expression\": \"repurchaseRate\",\n            \"data_type\": \"number\",\n            \"required\": false\n          },\n          {\n            \"name\": \"用户留存率\",\n            \"expression\": \"retentionRate\",\n            \"data_type\": \"number\",\n            \"required\": false\n          },\n          {\n            \"name\": \"销售增长率\",\n            \"expression\": \"growthRate\",\n            \"data_type\": \"number\",\n            \"required\": false\n          }\n        ]\n      }\n    },\n    {\n      \"id\": \"node_4\",\n      \"type\": \"mcp.create_filter_page\",\n      \"config\": {\n        \"interface_id\": \"api_productFilter\",\n        \"name\": \"商品筛选条件\",\n        \"dimensions\": [\n          {\n            \"name\": \"商品分类\",\n            \"expression\": \"category\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"品牌ID\",\n            \"expression\": \"brandId\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"价格区间\",\n            \"expression\": \"priceRange\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"库存状态\",\n            \"expression\": \"stockStatus\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"商品ID\",\n            \"expression\": \"productId\",\n            \"data_type\": \"string\",\n            \"required\": false\n          },\n          {\n            \"name\": \"商品名称\",\n            \"expression\": \"productName\",\n            \"data_type\": \"string\",\n            \"required\": false\n          }\n        ]\n      }\n    }\n  ],\n  \"edges\": [\n    {\n      \"id\": \"edge_0_1\",\n      \"source\": \"node_0\",\n      \"target\": \"node_1\"\n    },\n    {\n      \"id\": \"edge_1_2\",\n      \"source\": \"node_1\",\n      \"target\": \"node_2\"\n    },\n    {\n      \"id\": \"edge_2_3\",\n      \"source\": \"node_2\",\n      \"target\": \"node_3\"\n    },\n    {\n      \"id\": \"edge_3_4\",\n      \"source\": \"node_3\",\n      \"target\": \"node_4\"\n    }\n  ]\n}",
+      "trace_id": "direct-test-854b9e6b",
+      "status": "success"
+    }
+  }
+}
