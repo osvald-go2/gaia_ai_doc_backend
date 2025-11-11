@@ -10,6 +10,7 @@ import requests
 import json
 from typing import Optional, Dict, Any
 from dotenv import load_dotenv
+from utils.logger import logger
 
 # 加载环境变量
 load_dotenv()
@@ -71,7 +72,7 @@ class DeepSeekClient:
                 "stream": False
             }
 
-            logger.info("调用DeepSeek API", extra={
+            logger.info("test", "deepseek", "调用DeepSeek API", extra={
                 "model": model,
                 "temperature": temperature,
                 "max_tokens": max_tokens,
@@ -93,7 +94,7 @@ class DeepSeekClient:
 
             content = result["choices"][0]["message"]["content"]
 
-            logger.info("DeepSeek API调用成功", extra={
+            logger.info("test", "deepseek", "DeepSeek API调用成功", extra={
                 "response_length": len(content),
                 "usage": result.get("usage", {})
             })
@@ -101,18 +102,18 @@ class DeepSeekClient:
             return content
 
         except requests.exceptions.Timeout:
-            logger.error("DeepSeek API调用超时")
+            logger.error("test", "deepseek", "DeepSeek API调用超时")
             raise Exception("DeepSeek API调用超时")
         except requests.exceptions.RequestException as e:
-            logger.error("DeepSeek API网络错误", extra={"error": str(e)})
+            logger.error("test", "deepseek", "DeepSeek API网络错误", extra={"error": str(e)})
             raise Exception(f"DeepSeek API网络错误: {str(e)}")
         except json.JSONDecodeError as e:
-            logger.error("DeepSeek API响应JSON解析失败", extra={"error": str(e)})
+            logger.error("test", "deepseek", "DeepSeek API响应JSON解析失败", extra={"error": str(e)})
             raise Exception(f"DeepSeek API响应格式错误: {str(e)}")
         except Exception as e:
-            logger.error("DeepSeek API调用失败", extra={"error": str(e)})
+            logger.error("test", "deepseek", "DeepSeek API调用失败", extra={"error": str(e)})
             # 降级到mock响应
-            logger.warning("降级使用mock响应")
+            logger.warning("test", "deepseek", "降级使用mock响应")
             return self._mock_response(system_prompt, user_prompt)
 
     def _mock_response(self, system_prompt: str, user_prompt: str) -> str:
@@ -126,7 +127,7 @@ class DeepSeekClient:
         Returns:
             模拟的ISM JSON响应
         """
-        logger.info("使用DeepSeek Mock响应")
+        logger.info("test", "deepseek", "使用DeepSeek Mock响应")
 
         # 根据用户提示词内容智能生成mock响应
         if "用户" in user_prompt and "订单" in user_prompt:
@@ -304,7 +305,7 @@ class DeepSeekClient:
             连接是否成功
         """
         if self.use_mock:
-            logger.info("Mock模式，跳过连接测试")
+            logger.info("test", "deepseek", "Mock模式，跳过连接测试")
             return True
 
         try:
@@ -329,11 +330,11 @@ class DeepSeekClient:
             )
 
             response.raise_for_status()
-            logger.info("DeepSeek API连接测试成功")
+            logger.info("test", "deepseek", "DeepSeek API连接测试成功")
             return True
 
         except Exception as e:
-            logger.error("DeepSeek API连接测试失败", extra={"error": str(e)})
+            logger.error("test", "deepseek", "DeepSeek API连接测试失败", extra={"error": str(e)})
             return False
 
 

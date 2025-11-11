@@ -103,34 +103,100 @@ def extract_grid_blocks(content: str) -> List[Tuple[str, int]]:
     return grid_blocks
 
 
-def extract_context_around_grid(content: str, grid_start: int, context_size: int = 8) -> str:
+def extract_context_around_grid(content: str, grid_start: int, context_size: int = 15) -> str:
     """
-    提取grid块周围的上下文（标题等）
-    支持多种标题格式和文档结构
+    提取grid块周围的上下文，特别关注标题信息
+    优先获取grid块前面最近的标题作为上下文
     """
     lines = content.split('\n')
-    start = max(0, grid_start - context_size)
-    end = min(len(lines), grid_start + context_size)
 
-    context_lines = []
-    for i in range(start, end):
-        if i < grid_start:
-            line = lines[i].strip()
-            # 支持多种标题格式和文档结构
-            if (line.startswith('#') or line.startswith('##') or line.startswith('###') or  # markdown标题
-                line.endswith('：') or line.endswith(':') or  # 冒号结尾的标题
-                (len(line) < 50 and line and not line.startswith('```') and not line.startswith('!'))):  # 短行标题
-                context_lines.append(lines[i])
-        elif i >= grid_start:
-            # grid块本身会完整包含
+    # 分两个阶段：先找标题，再收集描述
+    best_title = None
+    best_title_line = -1
+
+    # 第一阶段：向上寻找最佳标题
+    for i in range(grid_start - 1, max(-1, grid_start - context_size - 1), -1):
+        if i < 0:
             break
 
-    # 如果没有找到明确的标题，尝试寻找最近的非空行
-    if not context_lines:
-        for i in range(start, grid_start):
+        line = lines[i].strip()
+
+        # 最高优先级：markdown标题（## ### #）
+        if line.startswith('#') or line.startswith('##') or line.startswith('###'):
+            best_title = lines[i]  # 保留原始格式（包括#）
+            best_title_line = i
+            break  # 找到markdown标题就立即停止，这是最理想的标题
+
+        # 次高优先级：包含明确功能关键词的短行
+        elif (not best_title and
+              len(line) < 50 and
+              line and
+              not line.startswith('```') and
+              not line.startswith('!') and
+              any(keyword in line for keyword in ['详情', '列表', '查询', '统计', '分析', '导出', '配置', '管理', '设置'])):
+            best_title = line
+            best_title_line = i
+            # 继续向上搜索，看是否有更好的markdown标题
+
+        # 第三优先级：冒号结尾的标题
+        elif (not best_title and
+              (line.endswith('：') or line.endswith(':')) and
+              len(line) < 50):
+            best_title = line
+            best_title_line = i
+            # 继续向上搜索，看是否有更好的标题
+
+    # 第二阶段：收集标题后的描述性内容（如果标题不是直接紧贴grid）
+    context_lines = []
+
+    if best_title:
+        context_lines.append(best_title)
+
+        # 在标题和grid之间收集描述性内容（最多2行）
+        for i in range(best_title_line + 1, grid_start):
+            if i >= len(lines):
+                break
+
             line = lines[i].strip()
-            if line and not line.startswith('```') and not line.startswith('!') and len(line) < 100:
+
+            # 遇到新的标题、代码块、空行等就停止
+            if (not line or
+                line.startswith('#') or
+                line.startswith('```') or
+                line.startswith('!') or
+                line.startswith('|') or  # 表格
+                line.startswith('-') or  # 列表
+                line.startswith('*')):   # 列表
+                break
+
+            # 收集描述性内容
+            if len(line) < 150:  # 避免过长的内容
                 context_lines.append(lines[i])
+
+            # 最多收集2行描述
+            if len(context_lines) >= 3:  # 标题 + 最多2行描述
+                break
+
+    # 第三阶段：如果没有找到标题，回退到描述性文本
+    if not context_lines:
+        # 收集grid前面的几行描述性文本
+        for i in range(grid_start - 1, max(-1, grid_start - 5), -1):
+            if i < 0:
+                break
+            line = lines[i].strip()
+            if line and not line.startswith('```') and not line.startswith('!'):
+                context_lines.insert(0, lines[i])
+                if len(context_lines) >= 2:
+                    break
+
+    # 最后的回退：最近的非空行
+    if not context_lines:
+        for i in range(grid_start - 1, max(-1, grid_start - 3), -1):
+            if i < 0:
+                break
+            line = lines[i].strip()
+            if line and not line.startswith('```'):
+                context_lines.insert(0, lines[i])
                 break
 
     return '\n'.join(context_lines)
@@ -139,34 +205,68 @@ def extract_context_around_grid(content: str, grid_start: int, context_size: int
 def find_grid_position_in_document(grid_content: str, full_document: str) -> int:
     """
     在完整文档中找到grid块的真正起始行号
+    使用更精确的匹配算法
     """
     lines = full_document.split('\n')
     grid_lines = grid_content.split('\n')
 
-    # 寻找grid块的起始位置（查找第一个以```grid开头的行）
+    # 提取grid块的标识内容（前几行用于匹配）
+    grid_identifier_lines = []
+    for line in grid_lines[:5]:  # 取前5行作为标识
+        if line.strip():
+            grid_identifier_lines.append(line.strip())
+
+    if not grid_identifier_lines:
+        return 0
+
+    best_match = -1
+    best_match_score = 0
+
+    # 寻找最佳匹配位置
     for i, line in enumerate(lines):
         if line.strip().startswith('```grid'):
-            # 检查接下来的几行是否匹配grid内容
-            match_found = True
-            for j, grid_line in enumerate(grid_lines[:1]):  # 只检查前几行以提高效率
-                if i + j < len(lines) and lines[i + j].strip() != grid_line.strip():
-                    match_found = False
-                    break
-            if match_found:
-                return i
-        elif len(grid_lines) > 0 and i + len(grid_lines) <= len(lines):
-            # 也尝试直接内容匹配
-            document_slice = lines[i:i+len(grid_lines)]
-            if document_slice == grid_lines:
-                return i
+            # 找到grid开始，计算匹配分数
+            match_score = 0
+            for j, identifier_line in enumerate(grid_identifier_lines):
+                if i + j < len(lines):
+                    doc_line = lines[i + j].strip()
+                    if doc_line == identifier_line:
+                        match_score += 1
+                    elif identifier_line in doc_line or doc_line in identifier_line:
+                        match_score += 0.5
 
-    # 如果找不到精确匹配，尝试简单的字符串搜索
+            # 更新最佳匹配
+            if match_score > best_match_score and match_score >= len(grid_identifier_lines) * 0.6:  # 至少60%匹配
+                best_match = i
+                best_match_score = match_score
+
+    # 如果找到匹配，返回最佳位置
+    if best_match >= 0:
+        return best_match
+
+    # 备用方法：使用内容片段搜索
+    if len(grid_lines) >= 2:
+        # 使用grid内容中的独特片段进行搜索
+        content_fragments = []
+        for line in grid_lines[1:10]:  # 跳过```grid，取内容部分
+            line = line.strip()
+            if line and len(line) > 10 and not line.startswith('```') and not line.startswith('grid_column'):
+                content_fragments.append(line)
+
+        for fragment in content_fragments[:3]:  # 只用前3个片段搜索
+            for i, doc_line in enumerate(lines):
+                if fragment in doc_line or doc_line in fragment:
+                    # 向前查找grid开始标记
+                    for j in range(max(0, i - 5), i + 1):
+                        if lines[j].strip().startswith('```grid'):
+                            return j
+                    return i
+
+    # 最后回退：简单字符串搜索
     if grid_content in full_document:
-        # 计算grid内容在文档中的起始行
         before_content = full_document.split(grid_content)[0]
         return before_content.count('\n')
 
-    # 最后回退到返回0
     return 0
 
 
@@ -280,9 +380,15 @@ def parse_interfaces_chunk(chunk_content: str, chunk_index: int, full_document: 
             # 通过搜索grid内容在完整文档中的位置来找到真正的行号
             actual_start = find_grid_position_in_document(grid_content, full_document)
             context = extract_context_around_grid(full_document, actual_start)
+
+            # 上下文提取完成 - 添加元数据用于调试
+            if len(context) > 0:
+                # 可以在这里添加调试信息到后续结果中，但暂时跳过日志记录
+                pass
         else:
             # 回退到使用块内容
             context = extract_context_around_grid(chunk_content, grid_start)
+
         block_index = chunk_index * 10 + i  # 确保索引唯一
         parse_tasks.append((grid_content, context, block_index))
 

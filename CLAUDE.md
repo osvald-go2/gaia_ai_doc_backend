@@ -1,145 +1,198 @@
-# CLAUDE.md
+# CLAUDE.md - AI Agent MVP Project Guide
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+## Project Overview
 
-## Development Commands
+This is an AI Agent MVP that converts Feishu document URLs into low-code workflow generation. It processes documents, extracts semantic information, generates execution plans, and outputs JSON-based workflow definitions.
 
-### Running the Application
-```bash
-# Run the main AI Agent MVP workflow
-uv run python app.py
+**Architecture**: LangGraph-based state machine with 6 nodes.
 
-# Or activate the virtual environment first
-uv shell
-python app.py
+## Tech Stack
+
+- **Python**: 3.10+
+- **LangGraph**: 1.0.2+ (workflow orchestration)
+- **FastAPI**: 0.120.4+ (REST API server)
+- **LangSmith**: 0.4.39+ (monitoring and tracing)
+- **uv**: Package manager
+- **LangGraph Studio**: Visual debugging tool
+- **DeepSeek**: LLM integration for document understanding
+- **Feishu API**: Document content retrieval
+
+## Project Structure
+
+```
+ai-agent-mvp/
+├── app.py                    # Main workflow entry point (MISSING)
+├── studio_app.py             # LangGraph Studio configuration
+├── server.py                 # FastAPI REST API server
+├── config.py                 # Application configuration
+├── .env                      # Environment variables
+├── pyproject.toml            # Project dependencies
+├── langgraph.json            # LangGraph Studio configuration
+├── start-langgraph-dev.bat   # Development launcher
+├── README.md                 # Project documentation
+├── STUDIO_GUIDE.md          # LangGraph Studio usage guide
+├── models/
+│   └── state.py              # AgentState definition
+├── nodes/                    # Workflow processing nodes
+│   ├── ingest_input.py      # Input validation
+│   ├── fetch_feishu_doc.py   # Document retrieval
+│   ├── understand_doc_parallel.py  # Document understanding
+│   ├── normalize_and_validate_ism.py  # ISM normalization
+│   ├── plan_from_ism.py     # Plan generation
+│   ├── apply_flow_patch.py   # Workflow synthesis
+│   └── finalize.py          # Result finalization
+├── utils/                    # Utility modules
+│   ├── logger.py             # Structured logging
+│   └── other utilities...
+├── mock/                     # Mock implementations
+│   └── mcp_client.py        # Mock MCP client
+└── test_*.py                 # Test scripts
 ```
 
-### Package Management
+## Key Workflow (6 nodes)
+
+```
+ingest_input → fetch_feishu_doc → understand_doc_parallel → normalize_and_validate_ism → plan_from_ism → apply_flow_patch → finalize
+```
+
+## Development Setup
+
+### Installation
+
 ```bash
 # Install dependencies
 uv sync
-
-# Add new dependencies
-uv add <package_name>
-
-# Check installed packages
-uv pip list
-
-# Update dependencies
-uv sync --upgrade
+uv add "langgraph-cli[inmem]"
 ```
 
-### Python Environment
-- Requires Python >=3.10 (specified in pyproject.toml)
-- Uses uv as the package manager
-- Virtual environment is created automatically in `.venv/`
+### Environment Configuration
 
-## Architecture Overview
+Copy `.env` and configure API keys:
 
-This is an AI Agent MVP that implements a document-to-workflow pipeline using LangGraph. The system processes Feishu document URLs and generates low-code workflow descriptions.
-
-### Core Workflow Pipeline
-
-The system implements a **6-node sequential workflow** using LangGraph's StateGraph:
-
-```
-ingest_input → fetch_feishu_doc → understand_doc → plan_from_ism → apply_flow_patch → finalize
+```env
+LANGSMITH_TRACING=true
+LANGSMITH_PROJECT=ai-agent-mvp
+FEISHU_APP_ID=your_app_id
+FEISHU_APP_SECRET=your_app_secret
+DEEPSEEK_API_KEY=your_deepseek_key
+LOG_LEVEL=INFO
 ```
 
-Each node has **strict state isolation** - nodes can only write to specific fields in the AgentState:
+## Running the Project
 
-- **ingest_input**: Writes `feishu_url`, `user_intent`, `trace_id`
-- **fetch_feishu_doc**: Writes `raw_doc` (mock implementation)
-- **understand_doc**: Writes `ism` (ISM - Intermediate Semantic Model)
-- **plan_from_ism**: Writes `plan` (MCP-compatible execution steps)
-- **apply_flow_patch**: Writes `final_flow_json` (DAG representation)
-- **finalize**: Writes `response` (final output)
+### Method 1: LangGraph Studio (Recommended)
 
-### State Management Architecture
+```bash
+uv run langgraph dev --port 8123
+# Access: https://smith.langchain.com/studio/?baseUrl=http://127.0.0.1:8123
+```
 
-The `AgentState` TypedDict enforces strict data flow:
-- **Input Layer**: URL and user intent
-- **Document Layer**: Raw document content
-- **Semantic Layer**: ISM representation with entities and actions
-- **Plan Layer**: MCP tool calls
-- **Execution Layer**: DAG JSON structure
-- **Output Layer**: Final response object
+### Method 2: FastAPI Server
 
-### Key Design Patterns
+```bash
+uv run python server.py
+# Access: http://localhost:8123
+```
 
-**Node Pattern**: Each node follows this structure:
-1. Extract trace_id and required inputs from state
-2. Log start phase with structured logger
-3. Perform node-specific logic
-4. Write only to allowed state fields
-5. Log end phase with metrics
-6. Return new state
+## API Usage
 
-**Mock Implementation**: The MVP uses mock data for:
-- Feishu document fetching
-- ISM generation (rule-based entity extraction)
-- No real LLM calls or API integrations
+### Create Thread & Run Workflow
 
-**Structured Logging**: All nodes use `utils.logger.StructuredLogger` with:
-- JSON format output
-- trace_id for request correlation
-- start/end/error phases
-- Performance metrics
+```bash
+# Create thread
+curl -X POST "http://localhost:8123/threads" -H "Content-Type: application/json" -d '{}'
 
-### Extension Points
+# Run workflow
+curl -X POST "http://localhost:8123/threads/{thread_id}/runs/wait" \
+  -H "Content-Type: application/json" \
+  -d '{"assistant_id": "agent", "input": {"feishu_url": "https://feishu.cn/doc/123", "user_intent": "generate_crud"}}'
+```
 
-The architecture is designed for future enhancement at specific insertion points:
+## Key Features
 
-1. **RAG/Memory**: Between `fetch_feishu_doc` and `understand_doc`
-2. **Document Caching**: Before `fetch_feishu_doc`
-3. **Validation**: After `understand_doc` (`validate_ism`) and after `plan_from_ism` (`validate_plan`)
-4. **Real Flow Patching**: Replace `apply_flow_patch` with actual flow manipulation
-5. **MCP Execution**: After `apply_flow_patch` for actual tool execution
+### 1. Document Processing
+- Feishu Integration with mock fallback
+- Parallel document understanding
+- Grid Block Parsing for structured content
+- DeepSeek-powered LLM integration
 
-### Data Structures
+### 2. Workflow Generation
+- ISM (Intermediate Semantic Model) generation
+- Plan compilation to executable workflows
+- DAG-based graph synthesis
+- Multi-level validation
 
-**ISM (Intermediate Semantic Model)**:
-```python
+### 3. MCP Integration
+- Mock MCP client for testing
+- Structured payload generation
+- Comprehensive error handling
+
+## State Management
+
+Each node has strict write permissions:
+- `ingest_input`: Only writes `feishu_urls`, `user_intent`, `trace_id`
+- `fetch_feishu_doc`: Only writes `raw_docs`
+- `understand_doc_parallel`: Only writes `ism`
+- `normalize_and_validate_ism`: Only writes `ism`, `diag`
+- `plan_from_ism`: Only writes `plan`
+- `apply_flow_patch`: Only writes `final_flow_json`, `mcp_payloads`
+- `finalize`: Only writes `response`
+
+## Important Notes
+
+### Missing Files
+- **app.py**: Imported in `server.py` but doesn't exist. Use `studio_app.py` or create `app.py`.
+
+### Configuration
+- Structured logging with JSON format
+- Graceful degradation to mock data when APIs fail
+- Comprehensive validation at each step
+- Trace ID propagation for debugging
+
+### Performance
+- Parallel document processing
+- LLM response caching
+- Adaptive batching
+
+## Testing
+
+### Test Scripts
+- `test_workflow.py`: Complete workflow testing
+- `test_understand_doc.py`: Document understanding
+- `test_grid_parsing.py`: Grid parsing
+- `test_dynamic_titles.py`: Dynamic content
+
+### Test Input Example
+```json
 {
-    "doc_meta": {"title": str, "url": str},
-    "entities": [{"id": str, "name": str, "fields": [...]}],
-    "actions": [{"id": str, "type": str, "target_entity": str, "ops": [...]}],
-    "views": []
+  "feishu_url": "https://feishu.cn/doc/123",
+  "user_intent": "generate_crud",
+  "trace_id": "test-001"
 }
 ```
 
-**Plan Format**:
-```python
-[
-    {
-        "tool": "mcp.create_entity",
-        "args": {"name": str, "fields": [...]}
-    },
-    {
-        "tool": "mcp.create_crud_page",
-        "args": {"target_entity": str, "ops": [...]}
-    }
-]
-```
+## Troubleshooting
 
-**Flow DAG JSON**:
-```python
-{
-    "nodes": [{"id": str, "type": str, "config": {...}}],
-    "edges": [{"id": str, "source": str, "target": str}]
-}
-```
+1. **Studio Won't Start**: Ensure `langgraph-cli[inmem]` is installed
+2. **UI Access Issues**: Check port availability
+3. **Execution Failures**: Check console logs and inputs
+4. **API Issues**: Verify environment variables
 
-## Dependencies
+### Debug Mode
+Set `LOG_LEVEL=DEBUG` for verbose JSON logging.
 
-- **langgraph>=1.0.2**: Workflow orchestration and state management
-- **langsmith>=0.4.39**: Monitoring and tracing
-- **Python 3.10+**: Required for LangGraph compatibility
+## Extension Points
 
-## Development Notes
+1. **RAG Integration**: Between document fetching and understanding
+2. **Caching Layer**: Document-level caching
+3. **Validation Nodes**: Additional validation after ISM/plan generation
+4. **Real MCP Integration**: Replace mock with actual MCP
+5. **Multiple LLM Support**: Different LLM providers
 
-- The system is designed to be **stateless** and **traceable** via trace_id
-- All logging is structured JSON for easy parsing
-- The mock implementation can be replaced with real integrations
-- Node state isolation prevents unintended side effects
-- The workflow is linear but can be extended with conditional edges in LangGraph
+## Contributing
+
+1. Follow existing node structure and state rules
+2. Use structured logging with trace IDs
+3. Add comprehensive validation
+4. Include tests for new features
+5. Update documentation as needed
