@@ -8,7 +8,15 @@ class AgentState(TypedDict, total=False):
     trace_id: str           # 入口生成，日志用
 
     # 文档层
-    raw_docs: List[str]     # 多个文档内容
+    raw_docs: List[str]     # 多个文档内容（保留，向后兼容）
+
+    # 文档切分层（新增）
+    doc_chunks: List[dict]  # 切分后的文档块列表
+    chunk_metadata: dict    # 文档切分的元数据信息
+
+    # 处理控制（新增）
+    use_chunked_processing: bool  # 是否启用块处理模式
+    chunking_strategy: dict       # 切分策略配置
 
     # 语义层 - 原始
     ism_raw: dict          # understand_doc 输出的原始ISM
