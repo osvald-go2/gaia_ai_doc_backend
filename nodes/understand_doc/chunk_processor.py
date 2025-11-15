@@ -11,7 +11,7 @@ from typing import List, Dict, Any, Optional
 from .config import understand_doc_config
 from .interface_extractor import InterfaceExtractor
 from utils.logger import logger
-from deepseek_client_simple import call_deepseek_llm
+from client.deepseek_client_simple import call_deepseek_llm
 
 
 class ChunkProcessor:

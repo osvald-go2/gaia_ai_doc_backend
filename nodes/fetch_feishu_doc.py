@@ -1,7 +1,7 @@
 from config import config
 from models.state import AgentState
 from utils.logger import logger
-from feishu_client import feishu_url_to_markdown
+from client.feishu_client import feishu_url_to_markdown
 
 
 def fetch_feishu_doc(state: AgentState) -> AgentState:

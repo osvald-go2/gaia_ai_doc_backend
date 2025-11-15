@@ -10,7 +10,7 @@ import os
 from typing import Dict, List, Optional, Any
 from dataclasses import dataclass
 from urllib.parse import urlparse
-from feishu_auth import init_feishu_auth_from_env
+from .feishu_auth import init_feishu_auth_from_env
 
 
 @dataclass

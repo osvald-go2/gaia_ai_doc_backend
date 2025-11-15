@@ -14,7 +14,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List, Dict, Any, Tuple
 from models.state import AgentState
 from utils.logger import logger
-from deepseek_client_simple import call_deepseek_llm
+from client.deepseek_client_simple import call_deepseek_llm
 
 
 # 系统提示词 - 用于单个接口解析
@@ -803,7 +803,7 @@ def process_grid_chunks_parallel(grid_chunks: List[dict], trace_id: str, step_na
     并行处理包含grid的块
     """
     from concurrent.futures import ThreadPoolExecutor, as_completed
-    from deepseek_client_simple import call_deepseek_llm
+    from client.deepseek_client_simple import call_deepseek_llm
 
     interface_results = []
 
@@ -1037,7 +1037,7 @@ def process_other_chunks_sequential(other_chunks: List[dict], trace_id: str, ste
     """
     顺序处理其他非grid块
     """
-    from deepseek_client_simple import call_deepseek_llm
+    from client.deepseek_client_simple import call_deepseek_llm
 
     interface_results = []
 

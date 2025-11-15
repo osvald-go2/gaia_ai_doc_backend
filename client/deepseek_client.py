@@ -89,7 +89,7 @@ class DeepSeekClient:
             response.raise_for_status()
             result = response.json()
 
-            if "choices" not in result or len(result.choices) == 0:
+            if "choices" not in result or len(result.get("choices", [])) == 0:
                 raise ValueError("API响应格式异常：缺少choices字段")
 
             content = result["choices"][0]["message"]["content"]
