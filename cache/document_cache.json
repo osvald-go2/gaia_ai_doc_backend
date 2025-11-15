@@ -1,0 +1,932 @@
+{
+  "version": "1.0",
+  "created_at": 1763182738.0695722,
+  "ttl_seconds": 86400,
+  "entries": [
+    {
+      "doc_hash": "a11c01f7cfbbea73b4f0d782476a6c7f87fc36fb6dcbd9171dd7b8429a33f4e4",
+      "feishu_urls": [
+        "https://feishu.cn/doc/test123",
+        "https://feishu.cn/doc/test456"
+      ],
+      "user_intent": "generate_crud",
+      "ism_result": {
+        "doc_meta": {
+          "title": "测试文档"
+        },
+        "interfaces": []
+      },
+      "plan_result": [
+        {
+          "step": "create_table",
+          "table": "users"
+        }
+      ],
+      "final_flow_json": "{\"nodes\": [], \"edges\": []}",
+      "mcp_payloads": [
+        {
+          "action": "create",
+          "target": "users"
+        }
+      ],
+      "final_response": {
+        "status": "success",
+        "message": "测试完成"
+      },
+      "timestamp": 1763182029.3254871,
+      "hit_count": 3,
+      "doc_preview": "# 测试文档\n这是一个测试文档，包含用户表信息\n字段：id, name, email",
+      "processing_time_ms": 1500.0
+    },
+    {
+      "doc_hash": "eecf9d694b35f8d223c68177b353bf4c2a8b9b5a3c610ae23563659ba9bc27a3",
+      "feishu_urls": [
+        "https://feishu.cn/doc/doc1"
+      ],
+      "user_intent": "generate_crud",
+      "ism_result": {
+        "doc_meta": {
+          "title": "文档1"
+        }
+      },
+      "plan_result": [],
+      "final_flow_json": "{}",
+      "mcp_payloads": [],
+      "final_response": {
+        "status": "success"
+      },
+      "timestamp": 1763182029.325881,
+      "hit_count": 1,
+      "doc_preview": "# 测试文档1\n用户表：id, name",
+      "processing_time_ms": 0.0
+    },
+    {
+      "doc_hash": "1d2de61c0cd54cadd436ead1b65f352ae8ce669a24119a3053b93a818b8f00f7",
+      "feishu_urls": [
+        "https://feishu.cn/doc/generate_crud"
+      ],
+      "user_intent": "generate_crud",
+      "ism_result": {
+        "doc_meta": {
+          "title": "文档_generate_crud"
+        }
+      },
+      "plan_result": [],
+      "final_flow_json": "{}",
+      "mcp_payloads": [],
+      "final_response": {
+        "status": "success",
+        "intent": "generate_crud"
+      },
+      "timestamp": 1763182023.611744,
+      "hit_count": 2,
+      "doc_preview": "# 测试文档\n用户表：id, name, email",
+      "processing_time_ms": 0.0
+    },
+    {
+      "doc_hash": "5d5a23ee61fff327b31318ff7227bb5e7e92e489570869364d5e63fe493fe935",
+      "feishu_urls": [
+        "https://feishu.cn/doc/generate_api"
+      ],
+      "user_intent": "generate_api",
+      "ism_result": {
+        "doc_meta": {
+          "title": "文档_generate_api"
+        }
+      },
+      "plan_result": [],
+      "final_flow_json": "{}",
+      "mcp_payloads": [],
+      "final_response": {
+        "status": "success",
+        "intent": "generate_api"
+      },
+      "timestamp": 1763182023.611938,
+      "hit_count": 2,
+      "doc_preview": "# 测试文档\n用户表：id, name, email",
+      "processing_time_ms": 0.0
+    },
+    {
+      "doc_hash": "9ffd55b75a71bfbf58db8204ac4046ffd0921216985d271781e95d4ccd332ea8",
+      "feishu_urls": [
+        "https://feishu.cn/doc/generate_dashboard"
+      ],
+      "user_intent": "generate_dashboard",
+      "ism_result": {
+        "doc_meta": {
+          "title": "文档_generate_dashboard"
+        }
+      },
+      "plan_result": [],
+      "final_flow_json": "{}",
+      "mcp_payloads": [],
+      "final_response": {
+        "status": "success",
+        "intent": "generate_dashboard"
+      },
+      "timestamp": 1763182023.612133,
+      "hit_count": 2,
+      "doc_preview": "# 测试文档\n用户表：id, name, email",
+      "processing_time_ms": 0.0
+    },
+    {
+      "doc_hash": "2bcdbadd082e739ff51ac3fd5ac72ac98dab1be152be5ab37bbe5b91aaa815a4",
+      "feishu_urls": [
+        "https://feishu.cn/doc/expire"
+      ],
+      "user_intent": "test_expire",
+      "ism_result": {
+        "doc_meta": {
+          "title": "过期测试"
+        }
+      },
+      "plan_result": [],
+      "final_flow_json": "{}",
+      "mcp_payloads": [],
+      "final_response": {
+        "status": "success"
+      },
+      "timestamp": 1763182023.61243,
+      "hit_count": 1,
+      "doc_preview": "# 过期测试文档",
+      "processing_time_ms": 0.0
+    },
+    {
+      "doc_hash": "ef9ef624888c47f8107968cc694e22cc2d5c0c60ae205e46a254dd57d733bc12",
+      "feishu_urls": [
+        "https://feishu.cn/doc/123"
+      ],
+      "user_intent": "generate_crud",
+      "ism_result": {},
+      "plan_result": [],
+      "final_flow_json": "{}",
+      "mcp_payloads": [],
+      "final_response": {},
+      "timestamp": 1763182604.912577,
+      "hit_count": 1,
+      "doc_preview": "# mock feishu doc 1\n需求：生成用户表(users)，字段：id(string,pk), name(string), channel(string)\n并生成对应的CRUD页面\n\n功能要求：\n- 支持用户的增删改查\n- 列表页要有分页功能\n- 支持按姓名搜索",
+      "processing_time_ms": 0.0
+    },
+    {
+      "doc_hash": "2354f5610c7b2ac9026475a06a272f363205d9a63ed1e5d9ad413d8b63909b46",
+      "feishu_urls": [
+        "https://ecnjtt87q4e5.feishu.cn/wiki/O2NjwrNDCiRDqMkWJyfcNwd5nXe"
+      ],
+      "user_intent": "generate_crud",
+      "ism_result": {
+        "doc_meta": {
+          "title": "飞书文档 1",
+          "url": "https://ecnjtt87q4e5.feishu.cn/wiki/O2NjwrNDCiRDqMkWJyfcNwd5nXe",
+          "version": "latest",
+          "parsing_mode": "chunked_parallel",
+          "total_chunks": 6,
+          "chunks_with_grid": 5,
+          "chunking_strategy": {
+            "method": "rule_based",
+            "max_chunk_size": 2000,
+            "min_chunk_size": 100,
+            "split_by_headers": true,
+            "split_by_paragraphs": true,
+            "preserve_context": true
+          }
+        },
+        "interfaces": [
+          {
+            "id": "api_totalFilter_filterDimension",
+            "name": "总筛选项",
+            "type": "filter_dimension",
+            "description": "提供全局筛选功能，支持按公司、行业、地域等多维度过滤数据",
+            "fields": [
+              {
+                "name": "公司ID",
+                "expression": "companyId",
+                "data_type": "string",
+                "required": true,
+                "description": "唯一标识公司的ID"
+              },
+              {
+                "name": "广告投放行业",
+                "expression": "adIndustry",
+                "data_type": "string",
+                "required": true,
+                "description": "广告投放行业分类，支持一二三级行业划分"
+              },
+              {
+                "name": "公司注册地址",
+                "expression": "companyAddress",
+                "data_type": "string",
+                "required": true,
+                "description": "公司注册地址，支持省市级联选择"
+              },
+              {
+                "name": "门店范围",
+                "expression": "storeRange",
+                "data_type": "number",
+                "required": true,
+                "description": "门店数量范围，0-10家"
+              }
+            ],
+            "operations": [
+              "read"
+            ],
+            "source_chunk_ids": [],
+            "source_method": "parallel_llm_parsing_array_array_item_0",
+            "source_chunk_id": "chunk_0_eac8364e",
+            "source_chunk_type": "header_section"
+          },
+          {
+            "id": "api_consumptionFluctuation_trendAnalysis",
+            "name": "消耗波动详情",
+            "type": "trend_analysis",
+            "description": "展示广告消耗波动情况，包含关键指标和趋势分析",
+            "fields": [
+              {
+                "name": "消耗",
+                "expression": "consumption",
+                "data_type": "number",
+                "required": false,
+                "description": "广告消耗金额指标"
+              },
+              {
+                "name": "CTR",
+                "expression": "ctr",
+                "data_type": "number",
+                "required": false,
+                "description": "点击率指标，衡量广告效果"
+              },
+              {
+                "name": "CVR",
+                "expression": "cvr",
+                "data_type": "number",
+                "required": false,
+                "description": "转化率指标"
+              },
+              {
+                "name": "CPA",
+                "expression": "cpa",
+                "data_type": "number",
+                "required": false,
+                "description": "单次转化成本"
+              },
+              {
+                "name": "SHOW",
+                "expression": "show",
+                "data_type": "number",
+                "required": false,
+                "description": "展示次数"
+              }
+            ],
+            "operations": [
+              "read"
+            ],
+            "source_chunk_ids": [],
+            "source_method": "parallel_llm_parsing_array_array_item_1, parallel_llm_parsing_array_array_item_0, parallel_llm_parsing_array_array_item_1",
+            "source_chunk_id": "chunk_0_eac8364e",
+            "source_chunk_type": "header_section"
+          },
+          {
+            "id": "api_material_detail_data_display",
+            "name": "素材明细",
+            "type": "data_display",
+            "description": "素材数据明细展示功能，提供素材维度的详细数据查询",
+            "fields": [
+              {
+                "name": "素材ID",
+                "expression": "materialId",
+                "data_type": "string",
+                "required": true,
+                "description": "广告素材唯一标识符"
+              },
+              {
+                "name": "素材名称",
+                "expression": "materialName",
+                "data_type": "string",
+                "required": false,
+                "description": "素材名称"
+              },
+              {
+                "name": "素材URL",
+                "expression": "materialUrl",
+                "data_type": "string",
+                "required": false,
+                "description": "素材链接地址"
+              },
+              {
+                "name": "消耗",
+                "expression": "consumption",
+                "data_type": "number",
+                "required": false,
+                "description": "素材消耗金额"
+              },
+              {
+                "name": "CTR",
+                "expression": "ctr",
+                "data_type": "number",
+                "required": false,
+                "description": "点击率"
+              },
+              {
+                "name": "CVR",
+                "expression": "cvr",
+                "data_type": "number",
+                "required": false,
+                "description": "转化率"
+              }
+            ],
+            "operations": [
+              "read"
+            ],
+            "source_chunk_ids": [],
+            "source_method": "parallel_llm_parsing_array_array_item_1, parallel_llm_parsing_array_array_item_2, parallel_llm_parsing_array_array_item_0",
+            "source_chunk_id": "chunk_0_192cb855",
+            "source_chunk_type": "header_section"
+          },
+          {
+            "id": "api_consumption_trend_trend_analysis",
+            "name": "消耗趋势",
+            "type": "trend_analysis",
+            "description": "广告消耗趋势分析功能，按时间维度展示消耗数据变化",
+            "fields": [
+              {
+                "name": "天",
+                "expression": "day",
+                "data_type": "date",
+                "required": true,
+                "description": "时间维度，按天统计"
+              },
+              {
+                "name": "消耗",
+                "expression": "consumption",
+                "data_type": "number",
+                "required": false,
+                "description": "广告消耗金额指标"
+              },
+              {
+                "name": "时间维度",
+                "expression": "timeDimension",
+                "data_type": "string",
+                "required": true,
+                "description": "分析的时间维度，支持按天统计"
+              },
+              {
+                "name": "消耗指标",
+                "expression": "consumptionMetrics",
+                "data_type": "number",
+                "required": false,
+                "description": "广告消耗相关的业务指标"
+              }
+            ],
+            "operations": [
+              "read"
+            ],
+            "source_chunk_ids": [],
+            "source_method": "parallel_llm_parsing_array_array_item_2, parallel_llm_parsing_array_array_item_1, parallel_llm_parsing_array_array_item_0",
+            "source_chunk_id": "chunk_0_192cb855",
+            "source_chunk_type": "header_section"
+          },
+          {
+            "id": "api_transaction_trend_trend_analysis",
+            "name": "交易趋势",
+            "type": "trend_analysis",
+            "description": "交易数据趋势分析功能，按时间维度展示交易数据变化",
+            "fields": [
+              {
+                "name": "天",
+                "expression": "day",
+                "data_type": "date",
+                "required": true,
+                "description": "时间维度，按天统计"
+              },
+              {
+                "name": "时间维度",
+                "expression": "timeDimension",
+                "data_type": "string",
+                "required": true,
+                "description": "分析的时间维度，支持按天统计"
+              },
+              {
+                "name": "GMV",
+                "expression": "gmv",
+                "data_type": "number",
+                "required": false,
+                "description": "商品交易总额，核心交易指标"
+              }
+            ],
+            "operations": [
+              "read"
+            ],
+            "source_chunk_ids": [],
+            "source_method": "parallel_llm_parsing_array_array_item_2, parallel_llm_parsing_array_array_item_1",
+            "source_chunk_id": "chunk_0_3a13df79",
+            "source_chunk_type": "header_section"
+          }
+        ],
+        "entities": [],
+        "actions": [],
+        "views": [],
+        "parsing_statistics": {
+          "total_chunks": 6,
+          "chunks_with_grid": 5,
+          "chunks_processed": 6,
+          "interfaces_generated": 5,
+          "entities_generated": 0
+        },
+        "__processing_method": "chunked_parallel",
+        "__key": "chunked_parallel_0053",
+        "__version": "1.0",
+        "__optimized": true,
+        "__optimized_timestamp": "{\"timestamp\": \"now\"}",
+        "__key__": "d70f478a7e32294549254a5ec1bc3ae3"
+      },
+      "plan_result": [
+        {
+          "tool": "mcp.save_graph",
+          "args": {
+            "graph_json": "{\"interface_id\": \"api_totalFilter_filterDimension\", \"interface_name\": \"总筛选项\", \"nodes\": [{\"id\": \"n_sql_89069c2d\", \"componentId\": \"lowcode.sql_raw\", \"componentType\": 2, \"name\": \"SQL-总筛选项\", \"type\": \"lowcode\", \"configs\": {\"engine\": \"doris\", \"psm\": \"var:CLUSTER_DSN\", \"reqBody\": \"SELECT  FROM tab WHERE 1=1 /* TODO: replace with real source table */\", \"lang\": \"\", \"retryConfig\": {}, \"version\": \"v1.0\"}, \"fieldFromList\": [], \"fieldList\": []}], \"edges\": []}",
+            "interface_id": "api_totalFilter_filterDimension",
+            "interface_name": "总筛选项"
+          }
+        },
+        {
+          "tool": "mcp.save_graph",
+          "args": {
+            "graph_json": "{\"interface_id\": \"api_consumptionFluctuation_trendAnalysis\", \"interface_name\": \"消耗波动详情\", \"nodes\": [{\"id\": \"n_sql_e0e41797\", \"componentId\": \"lowcode.sql_raw\", \"componentType\": 2, \"name\": \"SQL-消耗波动详情\", \"type\": \"lowcode\", \"configs\": {\"engine\": \"doris\", \"psm\": \"var:CLUSTER_DSN\", \"reqBody\": \"SELECT  FROM tab WHERE 1=1 /* TODO: replace with real source table */\", \"lang\": \"\", \"retryConfig\": {}, \"version\": \"v1.0\"}, \"fieldFromList\": [], \"fieldList\": []}], \"edges\": []}",
+            "interface_id": "api_consumptionFluctuation_trendAnalysis",
+            "interface_name": "消耗波动详情"
+          }
+        },
+        {
+          "tool": "mcp.save_graph",
+          "args": {
+            "graph_json": "{\"interface_id\": \"api_material_detail_data_display\", \"interface_name\": \"素材明细\", \"nodes\": [{\"id\": \"n_sql_e355092f\", \"componentId\": \"lowcode.sql_raw\", \"componentType\": 2, \"name\": \"SQL-素材明细\", \"type\": \"lowcode\", \"configs\": {\"engine\": \"doris\", \"psm\": \"var:CLUSTER_DSN\", \"reqBody\": \"SELECT  FROM tab WHERE 1=1 /* TODO: replace with real source table */\", \"lang\": \"\", \"retryConfig\": {}, \"version\": \"v1.0\"}, \"fieldFromList\": [], \"fieldList\": []}], \"edges\": []}",
+            "interface_id": "api_material_detail_data_display",
+            "interface_name": "素材明细"
+          }
+        },
+        {
+          "tool": "mcp.save_graph",
+          "args": {
+            "graph_json": "{\"interface_id\": \"api_consumption_trend_trend_analysis\", \"interface_name\": \"消耗趋势\", \"nodes\": [{\"id\": \"n_sql_f6c9a7b3\", \"componentId\": \"lowcode.sql_raw\", \"componentType\": 2, \"name\": \"SQL-消耗趋势\", \"type\": \"lowcode\", \"configs\": {\"engine\": \"doris\", \"psm\": \"var:CLUSTER_DSN\", \"reqBody\": \"SELECT  FROM tab WHERE 1=1 /* TODO: replace with real source table */\", \"lang\": \"\", \"retryConfig\": {}, \"version\": \"v1.0\"}, \"fieldFromList\": [], \"fieldList\": []}], \"edges\": []}",
+            "interface_id": "api_consumption_trend_trend_analysis",
+            "interface_name": "消耗趋势"
+          }
+        },
+        {
+          "tool": "mcp.save_graph",
+          "args": {
+            "graph_json": "{\"interface_id\": \"api_transaction_trend_trend_analysis\", \"interface_name\": \"交易趋势\", \"nodes\": [{\"id\": \"n_sql_fbc3a8b9\", \"componentId\": \"lowcode.sql_raw\", \"componentType\": 2, \"name\": \"SQL-交易趋势\", \"type\": \"lowcode\", \"configs\": {\"engine\": \"doris\", \"psm\": \"var:CLUSTER_DSN\", \"reqBody\": \"SELECT  FROM tab WHERE 1=1 /* TODO: replace with real source table */\", \"lang\": \"\", \"retryConfig\": {}, \"version\": \"v1.0\"}, \"fieldFromList\": [], \"fieldList\": []}], \"edges\": []}",
+            "interface_id": "api_transaction_trend_trend_analysis",
+            "interface_name": "交易趋势"
+          }
+        }
+      ],
+      "final_flow_json": "{\n  \"processed_interfaces\": 5,\n  \"failed_interfaces\": 0,\n  \"total_payloads\": 5,\n  \"mcp_tool\": \"mcp.save_graph\",\n  \"validation_status\": \"passed\"\n}",
+      "mcp_payloads": [
+        {
+          "tool": "mcp.save_graph",
+          "args": {
+            "graph_json": "{\"interface_id\": \"api_totalFilter_filterDimension\", \"interface_name\": \"总筛选项\", \"nodes\": [{\"id\": \"n_sql_89069c2d\", \"componentId\": \"lowcode.sql_raw\", \"componentType\": 2, \"name\": \"SQL-总筛选项\", \"type\": \"lowcode\", \"configs\": {\"engine\": \"doris\", \"psm\": \"var:CLUSTER_DSN\", \"reqBody\": \"SELECT  FROM tab WHERE 1=1 /* TODO: replace with real source table */\", \"lang\": \"\", \"retryConfig\": {}, \"version\": \"v1.0\"}, \"fieldFromList\": [], \"fieldList\": []}], \"edges\": []}",
+            "interface_id": "api_totalFilter_filterDimension",
+            "interface_name": "总筛选项",
+            "validation_passed": true
+          }
+        },
+        {
+          "tool": "mcp.save_graph",
+          "args": {
+            "graph_json": "{\"interface_id\": \"api_consumptionFluctuation_trendAnalysis\", \"interface_name\": \"消耗波动详情\", \"nodes\": [{\"id\": \"n_sql_e0e41797\", \"componentId\": \"lowcode.sql_raw\", \"componentType\": 2, \"name\": \"SQL-消耗波动详情\", \"type\": \"lowcode\", \"configs\": {\"engine\": \"doris\", \"psm\": \"var:CLUSTER_DSN\", \"reqBody\": \"SELECT  FROM tab WHERE 1=1 /* TODO: replace with real source table */\", \"lang\": \"\", \"retryConfig\": {}, \"version\": \"v1.0\"}, \"fieldFromList\": [], \"fieldList\": []}], \"edges\": []}",
+            "interface_id": "api_consumptionFluctuation_trendAnalysis",
+            "interface_name": "消耗波动详情",
+            "validation_passed": true
+          }
+        },
+        {
+          "tool": "mcp.save_graph",
+          "args": {
+            "graph_json": "{\"interface_id\": \"api_material_detail_data_display\", \"interface_name\": \"素材明细\", \"nodes\": [{\"id\": \"n_sql_e355092f\", \"componentId\": \"lowcode.sql_raw\", \"componentType\": 2, \"name\": \"SQL-素材明细\", \"type\": \"lowcode\", \"configs\": {\"engine\": \"doris\", \"psm\": \"var:CLUSTER_DSN\", \"reqBody\": \"SELECT  FROM tab WHERE 1=1 /* TODO: replace with real source table */\", \"lang\": \"\", \"retryConfig\": {}, \"version\": \"v1.0\"}, \"fieldFromList\": [], \"fieldList\": []}], \"edges\": []}",
+            "interface_id": "api_material_detail_data_display",
+            "interface_name": "素材明细",
+            "validation_passed": true
+          }
+        },
+        {
+          "tool": "mcp.save_graph",
+          "args": {
+            "graph_json": "{\"interface_id\": \"api_consumption_trend_trend_analysis\", \"interface_name\": \"消耗趋势\", \"nodes\": [{\"id\": \"n_sql_f6c9a7b3\", \"componentId\": \"lowcode.sql_raw\", \"componentType\": 2, \"name\": \"SQL-消耗趋势\", \"type\": \"lowcode\", \"configs\": {\"engine\": \"doris\", \"psm\": \"var:CLUSTER_DSN\", \"reqBody\": \"SELECT  FROM tab WHERE 1=1 /* TODO: replace with real source table */\", \"lang\": \"\", \"retryConfig\": {}, \"version\": \"v1.0\"}, \"fieldFromList\": [], \"fieldList\": []}], \"edges\": []}",
+            "interface_id": "api_consumption_trend_trend_analysis",
+            "interface_name": "消耗趋势",
+            "validation_passed": true
+          }
+        },
+        {
+          "tool": "mcp.save_graph",
+          "args": {
+            "graph_json": "{\"interface_id\": \"api_transaction_trend_trend_analysis\", \"interface_name\": \"交易趋势\", \"nodes\": [{\"id\": \"n_sql_fbc3a8b9\", \"componentId\": \"lowcode.sql_raw\", \"componentType\": 2, \"name\": \"SQL-交易趋势\", \"type\": \"lowcode\", \"configs\": {\"engine\": \"doris\", \"psm\": \"var:CLUSTER_DSN\", \"reqBody\": \"SELECT  FROM tab WHERE 1=1 /* TODO: replace with real source table */\", \"lang\": \"\", \"retryConfig\": {}, \"version\": \"v1.0\"}, \"fieldFromList\": [], \"fieldList\": []}], \"edges\": []}",
+            "interface_id": "api_transaction_trend_trend_analysis",
+            "interface_name": "交易趋势",
+            "validation_passed": true
+          }
+        }
+      ],
+      "final_response": {
+        "trace_id": "frontend-1763182646496-n4y7w8f47",
+        "status": "success",
+        "ism": {
+          "doc_meta": {
+            "title": "飞书文档 1",
+            "url": "https://ecnjtt87q4e5.feishu.cn/wiki/O2NjwrNDCiRDqMkWJyfcNwd5nXe",
+            "version": "latest",
+            "parsing_mode": "chunked_parallel",
+            "total_chunks": 6,
+            "chunks_with_grid": 5,
+            "chunking_strategy": {
+              "method": "rule_based",
+              "max_chunk_size": 2000,
+              "min_chunk_size": 100,
+              "split_by_headers": true,
+              "split_by_paragraphs": true,
+              "preserve_context": true
+            }
+          },
+          "interfaces": [
+            {
+              "id": "api_totalFilter_filterDimension",
+              "name": "总筛选项",
+              "type": "filter_dimension",
+              "description": "提供全局筛选功能，支持按公司、行业、地域等多维度过滤数据",
+              "fields": [
+                {
+                  "name": "公司ID",
+                  "expression": "companyId",
+                  "data_type": "string",
+                  "required": true,
+                  "description": "唯一标识公司的ID"
+                },
+                {
+                  "name": "广告投放行业",
+                  "expression": "adIndustry",
+                  "data_type": "string",
+                  "required": true,
+                  "description": "广告投放行业分类，支持一二三级行业划分"
+                },
+                {
+                  "name": "公司注册地址",
+                  "expression": "companyAddress",
+                  "data_type": "string",
+                  "required": true,
+                  "description": "公司注册地址，支持省市级联选择"
+                },
+                {
+                  "name": "门店范围",
+                  "expression": "storeRange",
+                  "data_type": "number",
+                  "required": true,
+                  "description": "门店数量范围，0-10家"
+                }
+              ],
+              "operations": [
+                "read"
+              ],
+              "source_chunk_ids": [],
+              "source_method": "parallel_llm_parsing_array_array_item_0",
+              "source_chunk_id": "chunk_0_eac8364e",
+              "source_chunk_type": "header_section"
+            },
+            {
+              "id": "api_consumptionFluctuation_trendAnalysis",
+              "name": "消耗波动详情",
+              "type": "trend_analysis",
+              "description": "展示广告消耗波动情况，包含关键指标和趋势分析",
+              "fields": [
+                {
+                  "name": "消耗",
+                  "expression": "consumption",
+                  "data_type": "number",
+                  "required": false,
+                  "description": "广告消耗金额指标"
+                },
+                {
+                  "name": "CTR",
+                  "expression": "ctr",
+                  "data_type": "number",
+                  "required": false,
+                  "description": "点击率指标，衡量广告效果"
+                },
+                {
+                  "name": "CVR",
+                  "expression": "cvr",
+                  "data_type": "number",
+                  "required": false,
+                  "description": "转化率指标"
+                },
+                {
+                  "name": "CPA",
+                  "expression": "cpa",
+                  "data_type": "number",
+                  "required": false,
+                  "description": "单次转化成本"
+                },
+                {
+                  "name": "SHOW",
+                  "expression": "show",
+                  "data_type": "number",
+                  "required": false,
+                  "description": "展示次数"
+                }
+              ],
+              "operations": [
+                "read"
+              ],
+              "source_chunk_ids": [],
+              "source_method": "parallel_llm_parsing_array_array_item_1, parallel_llm_parsing_array_array_item_0, parallel_llm_parsing_array_array_item_1",
+              "source_chunk_id": "chunk_0_eac8364e",
+              "source_chunk_type": "header_section"
+            },
+            {
+              "id": "api_material_detail_data_display",
+              "name": "素材明细",
+              "type": "data_display",
+              "description": "素材数据明细展示功能，提供素材维度的详细数据查询",
+              "fields": [
+                {
+                  "name": "素材ID",
+                  "expression": "materialId",
+                  "data_type": "string",
+                  "required": true,
+                  "description": "广告素材唯一标识符"
+                },
+                {
+                  "name": "素材名称",
+                  "expression": "materialName",
+                  "data_type": "string",
+                  "required": false,
+                  "description": "素材名称"
+                },
+                {
+                  "name": "素材URL",
+                  "expression": "materialUrl",
+                  "data_type": "string",
+                  "required": false,
+                  "description": "素材链接地址"
+                },
+                {
+                  "name": "消耗",
+                  "expression": "consumption",
+                  "data_type": "number",
+                  "required": false,
+                  "description": "素材消耗金额"
+                },
+                {
+                  "name": "CTR",
+                  "expression": "ctr",
+                  "data_type": "number",
+                  "required": false,
+                  "description": "点击率"
+                },
+                {
+                  "name": "CVR",
+                  "expression": "cvr",
+                  "data_type": "number",
+                  "required": false,
+                  "description": "转化率"
+                }
+              ],
+              "operations": [
+                "read"
+              ],
+              "source_chunk_ids": [],
+              "source_method": "parallel_llm_parsing_array_array_item_1, parallel_llm_parsing_array_array_item_2, parallel_llm_parsing_array_array_item_0",
+              "source_chunk_id": "chunk_0_192cb855",
+              "source_chunk_type": "header_section"
+            },
+            {
+              "id": "api_consumption_trend_trend_analysis",
+              "name": "消耗趋势",
+              "type": "trend_analysis",
+              "description": "广告消耗趋势分析功能，按时间维度展示消耗数据变化",
+              "fields": [
+                {
+                  "name": "天",
+                  "expression": "day",
+                  "data_type": "date",
+                  "required": true,
+                  "description": "时间维度，按天统计"
+                },
+                {
+                  "name": "消耗",
+                  "expression": "consumption",
+                  "data_type": "number",
+                  "required": false,
+                  "description": "广告消耗金额指标"
+                },
+                {
+                  "name": "时间维度",
+                  "expression": "timeDimension",
+                  "data_type": "string",
+                  "required": true,
+                  "description": "分析的时间维度，支持按天统计"
+                },
+                {
+                  "name": "消耗指标",
+                  "expression": "consumptionMetrics",
+                  "data_type": "number",
+                  "required": false,
+                  "description": "广告消耗相关的业务指标"
+                }
+              ],
+              "operations": [
+                "read"
+              ],
+              "source_chunk_ids": [],
+              "source_method": "parallel_llm_parsing_array_array_item_2, parallel_llm_parsing_array_array_item_1, parallel_llm_parsing_array_array_item_0",
+              "source_chunk_id": "chunk_0_192cb855",
+              "source_chunk_type": "header_section"
+            },
+            {
+              "id": "api_transaction_trend_trend_analysis",
+              "name": "交易趋势",
+              "type": "trend_analysis",
+              "description": "交易数据趋势分析功能，按时间维度展示交易数据变化",
+              "fields": [
+                {
+                  "name": "天",
+                  "expression": "day",
+                  "data_type": "date",
+                  "required": true,
+                  "description": "时间维度，按天统计"
+                },
+                {
+                  "name": "时间维度",
+                  "expression": "timeDimension",
+                  "data_type": "string",
+                  "required": true,
+                  "description": "分析的时间维度，支持按天统计"
+                },
+                {
+                  "name": "GMV",
+                  "expression": "gmv",
+                  "data_type": "number",
+                  "required": false,
+                  "description": "商品交易总额，核心交易指标"
+                }
+              ],
+              "operations": [
+                "read"
+              ],
+              "source_chunk_ids": [],
+              "source_method": "parallel_llm_parsing_array_array_item_2, parallel_llm_parsing_array_array_item_1",
+              "source_chunk_id": "chunk_0_3a13df79",
+              "source_chunk_type": "header_section"
+            }
+          ],
+          "entities": [],
+          "actions": [],
+          "views": [],
+          "parsing_statistics": {
+            "total_chunks": 6,
+            "chunks_with_grid": 5,
+            "chunks_processed": 6,
+            "interfaces_generated": 5,
+            "entities_generated": 0
+          },
+          "__processing_method": "chunked_parallel",
+          "__key": "chunked_parallel_0053",
+          "__version": "1.0",
+          "__optimized": true,
+          "__optimized_timestamp": "{\"timestamp\": \"now\"}",
+          "__key__": "d70f478a7e32294549254a5ec1bc3ae3"
+        },
+        "plan": [
+          {
+            "tool": "mcp.save_graph",
+            "args": {
+              "graph_json": "{\"interface_id\": \"api_totalFilter_filterDimension\", \"interface_name\": \"总筛选项\", \"nodes\": [{\"id\": \"n_sql_89069c2d\", \"componentId\": \"lowcode.sql_raw\", \"componentType\": 2, \"name\": \"SQL-总筛选项\", \"type\": \"lowcode\", \"configs\": {\"engine\": \"doris\", \"psm\": \"var:CLUSTER_DSN\", \"reqBody\": \"SELECT  FROM tab WHERE 1=1 /* TODO: replace with real source table */\", \"lang\": \"\", \"retryConfig\": {}, \"version\": \"v1.0\"}, \"fieldFromList\": [], \"fieldList\": []}], \"edges\": []}",
+              "interface_id": "api_totalFilter_filterDimension",
+              "interface_name": "总筛选项"
+            }
+          },
+          {
+            "tool": "mcp.save_graph",
+            "args": {
+              "graph_json": "{\"interface_id\": \"api_consumptionFluctuation_trendAnalysis\", \"interface_name\": \"消耗波动详情\", \"nodes\": [{\"id\": \"n_sql_e0e41797\", \"componentId\": \"lowcode.sql_raw\", \"componentType\": 2, \"name\": \"SQL-消耗波动详情\", \"type\": \"lowcode\", \"configs\": {\"engine\": \"doris\", \"psm\": \"var:CLUSTER_DSN\", \"reqBody\": \"SELECT  FROM tab WHERE 1=1 /* TODO: replace with real source table */\", \"lang\": \"\", \"retryConfig\": {}, \"version\": \"v1.0\"}, \"fieldFromList\": [], \"fieldList\": []}], \"edges\": []}",
+              "interface_id": "api_consumptionFluctuation_trendAnalysis",
+              "interface_name": "消耗波动详情"
+            }
+          },
+          {
+            "tool": "mcp.save_graph",
+            "args": {
+              "graph_json": "{\"interface_id\": \"api_material_detail_data_display\", \"interface_name\": \"素材明细\", \"nodes\": [{\"id\": \"n_sql_e355092f\", \"componentId\": \"lowcode.sql_raw\", \"componentType\": 2, \"name\": \"SQL-素材明细\", \"type\": \"lowcode\", \"configs\": {\"engine\": \"doris\", \"psm\": \"var:CLUSTER_DSN\", \"reqBody\": \"SELECT  FROM tab WHERE 1=1 /* TODO: replace with real source table */\", \"lang\": \"\", \"retryConfig\": {}, \"version\": \"v1.0\"}, \"fieldFromList\": [], \"fieldList\": []}], \"edges\": []}",
+              "interface_id": "api_material_detail_data_display",
+              "interface_name": "素材明细"
+            }
+          },
+          {
+            "tool": "mcp.save_graph",
+            "args": {
+              "graph_json": "{\"interface_id\": \"api_consumption_trend_trend_analysis\", \"interface_name\": \"消耗趋势\", \"nodes\": [{\"id\": \"n_sql_f6c9a7b3\", \"componentId\": \"lowcode.sql_raw\", \"componentType\": 2, \"name\": \"SQL-消耗趋势\", \"type\": \"lowcode\", \"configs\": {\"engine\": \"doris\", \"psm\": \"var:CLUSTER_DSN\", \"reqBody\": \"SELECT  FROM tab WHERE 1=1 /* TODO: replace with real source table */\", \"lang\": \"\", \"retryConfig\": {}, \"version\": \"v1.0\"}, \"fieldFromList\": [], \"fieldList\": []}], \"edges\": []}",
+              "interface_id": "api_consumption_trend_trend_analysis",
+              "interface_name": "消耗趋势"
+            }
+          },
+          {
+            "tool": "mcp.save_graph",
+            "args": {
+              "graph_json": "{\"interface_id\": \"api_transaction_trend_trend_analysis\", \"interface_name\": \"交易趋势\", \"nodes\": [{\"id\": \"n_sql_fbc3a8b9\", \"componentId\": \"lowcode.sql_raw\", \"componentType\": 2, \"name\": \"SQL-交易趋势\", \"type\": \"lowcode\", \"configs\": {\"engine\": \"doris\", \"psm\": \"var:CLUSTER_DSN\", \"reqBody\": \"SELECT  FROM tab WHERE 1=1 /* TODO: replace with real source table */\", \"lang\": \"\", \"retryConfig\": {}, \"version\": \"v1.0\"}, \"fieldFromList\": [], \"fieldList\": []}], \"edges\": []}",
+              "interface_id": "api_transaction_trend_trend_analysis",
+              "interface_name": "交易趋势"
+            }
+          }
+        ],
+        "flow_json": "{\n  \"processed_interfaces\": 5,\n  \"failed_interfaces\": 0,\n  \"total_payloads\": 5,\n  \"mcp_tool\": \"mcp.save_graph\",\n  \"validation_status\": \"passed\"\n}",
+        "mcp_execution": {
+          "total_payloads": 5,
+          "successful_executions": 5,
+          "failed_executions": 0,
+          "success_rate": "100.0%",
+          "results": [
+            {
+              "success": true,
+              "graph_id": "graph_f340e7a8",
+              "action": "create",
+              "interface_id": "api_totalFilter_filterDimension",
+              "interface_name": "总筛选项",
+              "execution_id": "exec_f26be1ba",
+              "message": "图创建成功",
+              "metadata": {
+                "node_count": 1,
+                "edge_count": 0,
+                "field_count": 0
+              }
+            },
+            {
+              "success": true,
+              "graph_id": "graph_caac9321",
+              "action": "create",
+              "interface_id": "api_consumptionFluctuation_trendAnalysis",
+              "interface_name": "消耗波动详情",
+              "execution_id": "exec_f16cf0da",
+              "message": "图创建成功",
+              "metadata": {
+                "node_count": 1,
+                "edge_count": 0,
+                "field_count": 0
+              }
+            },
+            {
+              "success": true,
+              "graph_id": "graph_5331b464",
+              "action": "create",
+              "interface_id": "api_material_detail_data_display",
+              "interface_name": "素材明细",
+              "execution_id": "exec_d75be15b",
+              "message": "图创建成功",
+              "metadata": {
+                "node_count": 1,
+                "edge_count": 0,
+                "field_count": 0
+              }
+            },
+            {
+              "success": true,
+              "graph_id": "graph_2e54cd0e",
+              "action": "create",
+              "interface_id": "api_consumption_trend_trend_analysis",
+              "interface_name": "消耗趋势",
+              "execution_id": "exec_ea5cb623",
+              "message": "图创建成功",
+              "metadata": {
+                "node_count": 1,
+                "edge_count": 0,
+                "field_count": 0
+              }
+            },
+            {
+              "success": true,
+              "graph_id": "graph_579c6987",
+              "action": "create",
+              "interface_id": "api_transaction_trend_trend_analysis",
+              "interface_name": "交易趋势",
+              "execution_id": "exec_06e06ed8",
+              "message": "图创建成功",
+              "metadata": {
+                "node_count": 1,
+                "edge_count": 0,
+                "field_count": 0
+              }
+            }
+          ]
+        },
+        "mcp_statistics": {
+          "total_graphs": 5,
+          "total_executions": 5,
+          "overall_success_rate": "100.0%"
+        }
+      },
+      "timestamp": 1763182738.067664,
+      "hit_count": 1,
+      "doc_preview": "# 飞书文档 1\n文档ID: O2NjwrNDCiRDqMkWJyfcNwd5nXe\n来源URL: https://ecnjtt87q4e5.feishu.cn/wiki/O2NjwrNDCiRDqMkWJyfcNwd5nXe\n---\n闭环本地-产品文档-PRD\n# 背景：\n这是一个PRD，描述了一个基本需求\n# 需求\n需求人员：@ou_e596556725230fb7e1317edba91d71...",
+      "processing_time_ms": 0.0
+    }
+  ]
+}

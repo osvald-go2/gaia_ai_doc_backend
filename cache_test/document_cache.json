@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "created_at": 1763182029.326236,
+  "ttl_seconds": 1,
+  "entries": [
+    {
+      "doc_hash": "2bcdbadd082e739ff51ac3fd5ac72ac98dab1be152be5ab37bbe5b91aaa815a4",
+      "feishu_urls": [
+        "https://feishu.cn/doc/expire"
+      ],
+      "user_intent": "test_expire",
+      "ism_result": {
+        "doc_meta": {
+          "title": "过期测试"
+        }
+      },
+      "plan_result": [],
+      "final_flow_json": "{}",
+      "mcp_payloads": [],
+      "final_response": {
+        "status": "success"
+      },
+      "timestamp": 1763182029.3262231,
+      "hit_count": 1,
+      "doc_preview": "# 过期测试文档",
+      "processing_time_ms": 0.0
+    }
+  ]
+}

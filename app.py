@@ -1,19 +1,21 @@
 """
 AI Agent MVP - 主工作流入口
-基于LangGraph的7节点工作流实现（新增文档切分）
+基于LangGraph的7节点工作流实现（新增文档切分和缓存功能）
 """
 
+import os
 from langgraph.graph import StateGraph, END
 
 from models.state import AgentState
 from nodes.ingest_input import ingest_input
 from nodes.fetch_feishu_doc import fetch_feishu_doc
 from nodes.split_document import split_document
-from nodes.understand_doc_parallel import understand_doc_parallel
+from nodes.understand_doc import understand_doc_parallel
 from nodes.normalize_and_validate_ism import normalize_and_validate_ism
 from nodes.plan_from_ism import plan_from_ism
 from nodes.apply_flow_patch import apply_flow_patch
 from nodes.finalize import finalize
+from utils.logger import logger
 
 
 def create_graph() -> StateGraph:
@@ -61,12 +63,13 @@ SAMPLE_INPUT = {
 }
 
 
-def run_workflow(input_data: dict = None) -> dict:
+def run_workflow(input_data: dict = None, use_cache: bool = None) -> dict:
     """
     运行完整的工作流
 
     Args:
         input_data: 输入数据，如果为None则使用SAMPLE_INPUT
+        use_cache: 是否使用缓存功能，None则根据环境变量决定
 
     Returns:
         工作流执行结果
@@ -74,8 +77,23 @@ def run_workflow(input_data: dict = None) -> dict:
     if input_data is None:
         input_data = SAMPLE_INPUT
 
-    # 创建工作流图
-    workflow = create_graph()
+    # 决定是否使用缓存
+    if use_cache is None:
+        use_cache = os.environ.get('ENABLE_DOC_CACHE', 'true').lower() == 'true'
+
+    trace_id = input_data.get('trace_id', 'unknown')
+
+    if use_cache:
+        logger.info(trace_id, "workflow_selection", "使用缓存感知工作流")
+        try:
+            from nodes.cache_aware_workflow import create_cached_graph
+            workflow = create_cached_graph()
+        except ImportError as e:
+            logger.warning(trace_id, "workflow_selection", f"缓存工作流不可用，回退到标准工作流: {str(e)}")
+            workflow = create_graph()
+    else:
+        logger.info(trace_id, "workflow_selection", "使用标准工作流")
+        workflow = create_graph()
 
     # 运行工作流
     result = workflow.invoke(input_data)
@@ -90,9 +108,39 @@ if __name__ == "__main__":
     print("-" * 50)
 
     try:
-        result = run_workflow()
-        print("工作流运行成功！")
-        print(f"结果: {result}")
+        # 测试缓存功能
+        use_cache = os.environ.get('ENABLE_DOC_CACHE', 'true').lower() == 'true'
+
+        if use_cache:
+            print("缓存功能已启用，进行缓存效果测试...")
+
+            # 第一次运行（应该正常处理）
+            print("\n第一次运行（正常处理）：")
+            result1 = run_workflow()
+            cache_hit = result1.get('__cache_hit', False)
+            print(f"缓存命中: {cache_hit}")
+            if not cache_hit:
+                print("这是正常的，第一次运行需要处理文档并缓存结果")
+
+            # 第二次运行（应该命中缓存）
+            print("\n第二次运行（应该命中缓存）：")
+            result2 = run_workflow()
+            cache_hit = result2.get('__cache_hit', False)
+            print(f"缓存命中: {cache_hit}")
+            print(f"最终响应中的缓存状态: {result2.get('response', {}).get('cached', 'unknown')}")
+            if cache_hit or result2.get('response', {}).get('cached', False):
+                print("缓存功能正常！")
+                cached_entry = result2.get('__cached_entry')
+                if cached_entry:
+                    print(f"缓存命中次数: {cached_entry.hit_count}")
+                    print(f"节省处理时间: {cached_entry.processing_time_ms:.2f}ms")
+            else:
+                print("缓存未命中，可能文档内容或用户意图有变化")
+        else:
+            print("缓存功能未启用，运行标准工作流...")
+            result = run_workflow(use_cache=False)
+            print("工作流运行成功！")
+
     except Exception as e:
         print(f"工作流运行失败: {str(e)}")
         raise

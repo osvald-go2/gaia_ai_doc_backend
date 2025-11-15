@@ -6,7 +6,13 @@
 from .core import understand_doc
 from .config import understand_doc_config
 
+# 兼容性别名
+def understand_doc_parallel(state):
+    """文档理解节点 - 并行版本（向后兼容）"""
+    return understand_doc(state)
+
 __all__ = [
     'understand_doc',
-    'understand_doc_config'
+    'understand_doc_config',
+    'understand_doc_parallel'
 ]
