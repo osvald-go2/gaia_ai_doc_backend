@@ -10,7 +10,7 @@ from models.state import AgentState
 from nodes.ingest_input import ingest_input
 from nodes.fetch_feishu_doc import fetch_feishu_doc
 from nodes.split_document import split_document
-from nodes.understand_doc_parallel import understand_doc_parallel
+from nodes.understand_doc import understand_doc
 from nodes.normalize_and_validate_ism import normalize_and_validate_ism
 from nodes.plan_from_ism import plan_from_ism
 from nodes.apply_flow_patch import apply_flow_patch
@@ -28,7 +28,7 @@ def create_graph() -> StateGraph:
     graph.add_node("ingest_input", ingest_input)
     graph.add_node("fetch_feishu_doc", fetch_feishu_doc)
     graph.add_node("split_document", split_document)
-    graph.add_node("understand_doc", understand_doc_parallel)
+    graph.add_node("understand_doc", understand_doc)
     graph.add_node("normalize_and_validate_ism", normalize_and_validate_ism)
     graph.add_node("plan_from_ism", plan_from_ism)
     graph.add_node("apply_flow_patch", apply_flow_patch)
