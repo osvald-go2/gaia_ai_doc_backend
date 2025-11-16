@@ -20,6 +20,8 @@ class DocumentCacheEntry:
     doc_hash: str                    # 文档内容hash
     feishu_urls: List[str]          # 原始URL列表
     user_intent: str                # 用户意图
+    doc_chunks: List[dict]          # 文档分片信息
+    chunk_metadata: dict            # 文档分片元数据
     ism_result: Dict[str, Any]      # ISM分析结果
     plan_result: List[dict]         # 执行计划结果
     final_flow_json: str            # 最终工作流JSON
@@ -37,6 +39,8 @@ class DocumentCacheEntry:
     def to_response_dict(self) -> Dict[str, Any]:
         """转换为响应格式"""
         return {
+            "doc_chunks": self.doc_chunks,
+            "chunk_metadata": self.chunk_metadata,
             "ism": self.ism_result,
             "plan": self.plan_result,
             "final_flow_json": self.final_flow_json,
@@ -126,6 +130,8 @@ class DocumentCache:
             raw_docs: List[str],
             feishu_urls: List[str],
             user_intent: str,
+            doc_chunks: List[dict],
+            chunk_metadata: dict,
             ism_result: Dict[str, Any],
             plan_result: List[dict],
             final_flow_json: str,
@@ -139,6 +145,8 @@ class DocumentCache:
             raw_docs: 原始文档内容列表
             feishu_urls: 飞书URL列表
             user_intent: 用户意图
+            doc_chunks: 文档分片信息
+            chunk_metadata: 文档分片元数据
             ism_result: ISM分析结果
             plan_result: 执行计划结果
             final_flow_json: 最终工作流JSON
@@ -153,6 +161,8 @@ class DocumentCache:
             doc_hash=doc_hash,
             feishu_urls=feishu_urls.copy(),
             user_intent=user_intent,
+            doc_chunks=doc_chunks.copy() if doc_chunks else [],
+            chunk_metadata=chunk_metadata.copy() if chunk_metadata else {},
             ism_result=ism_result,
             plan_result=plan_result.copy() if plan_result else [],
             final_flow_json=final_flow_json,
@@ -334,6 +344,8 @@ def store_document_cache(
     raw_docs: List[str],
     feishu_urls: List[str],
     user_intent: str,
+    doc_chunks: List[dict],
+    chunk_metadata: dict,
     ism_result: Dict[str, Any],
     plan_result: List[dict],
     final_flow_json: str,
@@ -348,6 +360,8 @@ def store_document_cache(
         raw_docs: 原始文档内容列表
         feishu_urls: 飞书URL列表
         user_intent: 用户意图
+        doc_chunks: 文档分片信息
+        chunk_metadata: 文档分片元数据
         ism_result: ISM分析结果
         plan_result: 执行计划结果
         final_flow_json: 最终工作流JSON
@@ -360,6 +374,8 @@ def store_document_cache(
         raw_docs=raw_docs,
         feishu_urls=feishu_urls,
         user_intent=user_intent,
+        doc_chunks=doc_chunks,
+        chunk_metadata=chunk_metadata,
         ism_result=ism_result,
         plan_result=plan_result,
         final_flow_json=final_flow_json,

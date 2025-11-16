@@ -56,6 +56,8 @@ def check_document_cache(state: AgentState) -> AgentState:
             result_state["__skip_processing"] = True
 
             # 直接设置缓存的结果到状态中
+            result_state["doc_chunks"] = cached_entry.doc_chunks
+            result_state["chunk_metadata"] = cached_entry.chunk_metadata
             result_state["ism"] = cached_entry.ism_result
             result_state["plan"] = cached_entry.plan_result
             result_state["final_flow_json"] = cached_entry.final_flow_json
@@ -100,6 +102,8 @@ def store_document_cache_result(state: AgentState) -> AgentState:
         raw_docs = state.get("raw_docs", [])
         feishu_urls = state.get("feishu_urls", [])
         user_intent = state.get("user_intent", "generate_crud")
+        doc_chunks = state.get("doc_chunks", [])
+        chunk_metadata = state.get("chunk_metadata", {})
         ism_result = state.get("ism", {})
         plan_result = state.get("plan", [])
         final_flow_json = state.get("final_flow_json", "{}")
@@ -111,6 +115,8 @@ def store_document_cache_result(state: AgentState) -> AgentState:
             raw_docs=raw_docs,
             feishu_urls=feishu_urls,
             user_intent=user_intent,
+            doc_chunks=doc_chunks,
+            chunk_metadata=chunk_metadata,
             ism_result=ism_result,
             plan_result=plan_result,
             final_flow_json=final_flow_json,
